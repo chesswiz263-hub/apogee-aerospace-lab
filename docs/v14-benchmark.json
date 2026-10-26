@@ -1,0 +1,23 @@
+{
+  "scenario": "400 km, 120 s burn at t=300 s, 18 min mission, seed 27",
+  "comparisons": [
+    {
+      "powered_covariance_injection": false,
+      "final_error_m": 149.67621478139952,
+      "final_position_1sigma_rss_m": 26.391911904490954,
+      "error_over_1sigma_rss": 5.671291088082558,
+      "final_attitude_estimation_error_deg": 0.060064854415080214,
+      "warning": "Isotropic approximation; no cross-covariance or time-correlated pointing bias"
+    },
+    {
+      "powered_covariance_injection": true,
+      "final_error_m": 135.45630976995676,
+      "final_position_1sigma_rss_m": 26.798194861229558,
+      "error_over_1sigma_rss": 5.05468037945828,
+      "final_attitude_estimation_error_deg": 0.060064854415080214,
+      "warning": "Isotropic approximation; no cross-covariance or time-correlated pointing bias"
+    }
+  ],
+  "verified_absolute_frame_transform": false,
+  "note": "Tests only sensitivity under synthetic model; physical flight validation is pending."
+}

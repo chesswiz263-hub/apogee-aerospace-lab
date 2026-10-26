@@ -1,0 +1,541 @@
+{
+  "version": "2.0.0",
+  "scope": "six synthetic scenarios, 12 seeds each, not operational calibration",
+  "geometry": "24 artificial stations by default, approximate GMST from UTC, spherical Earth",
+  "results": {
+    "nominal_finite_burn": {
+      "seed": 29,
+      "final_error_m": 243.1215186802942,
+      "final_1sigma_rss_m": 881.7646279083209,
+      "final_thrust_scale": 1.0493172417730279,
+      "packet_count": 9,
+      "received_count": 9,
+      "in_flight_count": 0,
+      "visible_intervals": 9,
+      "mean_nis_received": 0.331851391159725,
+      "runs": 12,
+      "median_final_position_error_m": 338.65636886407185,
+      "p90_final_position_error_m": 664.3106510464722,
+      "coverage_below_1sigma_rss_fraction": 1.0,
+      "run_seeds": [
+        {
+          "seed": 29,
+          "final_error_m": 243.1215186802942,
+          "final_1sigma_rss_m": 881.7646279083209,
+          "received_count": 9
+        },
+        {
+          "seed": 30,
+          "final_error_m": 211.59695223014833,
+          "final_1sigma_rss_m": 883.3562949209097,
+          "received_count": 9
+        },
+        {
+          "seed": 31,
+          "final_error_m": 813.5416382755072,
+          "final_1sigma_rss_m": 881.72305745895,
+          "received_count": 9
+        },
+        {
+          "seed": 32,
+          "final_error_m": 548.1446013435245,
+          "final_1sigma_rss_m": 882.063788744649,
+          "received_count": 9
+        },
+        {
+          "seed": 33,
+          "final_error_m": 81.34077507456068,
+          "final_1sigma_rss_m": 882.8633833974883,
+          "received_count": 9
+        },
+        {
+          "seed": 34,
+          "final_error_m": 429.60352071074203,
+          "final_1sigma_rss_m": 881.591981439084,
+          "received_count": 9
+        },
+        {
+          "seed": 35,
+          "final_error_m": 217.87526549750584,
+          "final_1sigma_rss_m": 882.1666411714045,
+          "received_count": 9
+        },
+        {
+          "seed": 36,
+          "final_error_m": 665.2401251834275,
+          "final_1sigma_rss_m": 881.39661594213,
+          "received_count": 9
+        },
+        {
+          "seed": 37,
+          "final_error_m": 486.3039428429703,
+          "final_1sigma_rss_m": 880.4892153880186,
+          "received_count": 9
+        },
+        {
+          "seed": 38,
+          "final_error_m": 655.9453838138743,
+          "final_1sigma_rss_m": 881.4067619954093,
+          "received_count": 9
+        },
+        {
+          "seed": 39,
+          "final_error_m": 105.8614168558608,
+          "final_1sigma_rss_m": 881.8704610923345,
+          "received_count": 9
+        },
+        {
+          "seed": 40,
+          "final_error_m": 247.7092170174017,
+          "final_1sigma_rss_m": 882.0278612853541,
+          "received_count": 9
+        }
+      ]
+    },
+    "no_burn_scale_unobservable": {
+      "seed": 29,
+      "final_error_m": 354.42018173147994,
+      "final_1sigma_rss_m": 871.0182810512209,
+      "final_thrust_scale": 1.0,
+      "packet_count": 9,
+      "received_count": 9,
+      "in_flight_count": 0,
+      "visible_intervals": 9,
+      "mean_nis_received": 0.35991811500219795,
+      "runs": 12,
+      "median_final_position_error_m": 399.3903289383366,
+      "p90_final_position_error_m": 618.8665761774844,
+      "coverage_below_1sigma_rss_fraction": 1.0,
+      "run_seeds": [
+        {
+          "seed": 29,
+          "final_error_m": 354.42018173147994,
+          "final_1sigma_rss_m": 871.0182810512209,
+          "received_count": 9
+        },
+        {
+          "seed": 30,
+          "final_error_m": 102.58395269558281,
+          "final_1sigma_rss_m": 871.2282540897875,
+          "received_count": 9
+        },
+        {
+          "seed": 31,
+          "final_error_m": 676.0996797643526,
+          "final_1sigma_rss_m": 870.876195733206,
+          "received_count": 9
+        },
+        {
+          "seed": 32,
+          "final_error_m": 411.10068610090667,
+          "final_1sigma_rss_m": 871.6392945708578,
+          "received_count": 9
+        },
+        {
+          "seed": 33,
+          "final_error_m": 251.01551620578218,
+          "final_1sigma_rss_m": 871.1366094120983,
+          "received_count": 9
+        },
+        {
+          "seed": 34,
+          "final_error_m": 494.5923674892505,
+          "final_1sigma_rss_m": 870.8215250733338,
+          "received_count": 9
+        },
+        {
+          "seed": 35,
+          "final_error_m": 201.28789751763003,
+          "final_1sigma_rss_m": 871.4723146208152,
+          "received_count": 9
+        },
+        {
+          "seed": 36,
+          "final_error_m": 610.8681055061496,
+          "final_1sigma_rss_m": 870.8305247747318,
+          "received_count": 9
+        },
+        {
+          "seed": 37,
+          "final_error_m": 387.67997177576655,
+          "final_1sigma_rss_m": 870.3495892801712,
+          "received_count": 9
+        },
+        {
+          "seed": 38,
+          "final_error_m": 619.755295140966,
+          "final_1sigma_rss_m": 870.7951033236228,
+          "received_count": 9
+        },
+        {
+          "seed": 39,
+          "final_error_m": 294.56647296894533,
+          "final_1sigma_rss_m": 870.9795124163866,
+          "received_count": 9
+        },
+        {
+          "seed": 40,
+          "final_error_m": 433.6705393095818,
+          "final_1sigma_rss_m": 870.8975220895846,
+          "received_count": 9
+        }
+      ]
+    },
+    "sparse_six_stations": {
+      "seed": 29,
+      "final_error_m": 574.4087652830411,
+      "final_1sigma_rss_m": 1249.0247387159275,
+      "final_thrust_scale": 1.0493794428389505,
+      "packet_count": 7,
+      "received_count": 7,
+      "in_flight_count": 0,
+      "visible_intervals": 7,
+      "mean_nis_received": 0.34348730465958627,
+      "runs": 12,
+      "median_final_position_error_m": 556.8681060065555,
+      "p90_final_position_error_m": 798.4174840697209,
+      "coverage_below_1sigma_rss_fraction": 1.0,
+      "run_seeds": [
+        {
+          "seed": 29,
+          "final_error_m": 574.4087652830411,
+          "final_1sigma_rss_m": 1249.0247387159275,
+          "received_count": 7
+        },
+        {
+          "seed": 30,
+          "final_error_m": 419.64722255550373,
+          "final_1sigma_rss_m": 1249.8783517359307,
+          "received_count": 7
+        },
+        {
+          "seed": 31,
+          "final_error_m": 810.7483662872478,
+          "final_1sigma_rss_m": 1249.2959736570554,
+          "received_count": 7
+        },
+        {
+          "seed": 32,
+          "final_error_m": 583.7516035362477,
+          "final_1sigma_rss_m": 1249.108177379403,
+          "received_count": 7
+        },
+        {
+          "seed": 33,
+          "final_error_m": 687.4395441119789,
+          "final_1sigma_rss_m": 1248.9215135300906,
+          "received_count": 7
+        },
+        {
+          "seed": 34,
+          "final_error_m": 983.3323841396599,
+          "final_1sigma_rss_m": 1248.3066759654612,
+          "received_count": 7
+        },
+        {
+          "seed": 35,
+          "final_error_m": 638.6436924546585,
+          "final_1sigma_rss_m": 1249.1910747272964,
+          "received_count": 7
+        },
+        {
+          "seed": 36,
+          "final_error_m": 511.3187061374168,
+          "final_1sigma_rss_m": 1249.1258096527063,
+          "received_count": 7
+        },
+        {
+          "seed": 37,
+          "final_error_m": 360.7203832483001,
+          "final_1sigma_rss_m": 1248.4787726830818,
+          "received_count": 7
+        },
+        {
+          "seed": 38,
+          "final_error_m": 473.96421273808045,
+          "final_1sigma_rss_m": 1249.108949223098,
+          "received_count": 7
+        },
+        {
+          "seed": 39,
+          "final_error_m": 338.83754490409046,
+          "final_1sigma_rss_m": 1250.279670764699,
+          "received_count": 7
+        },
+        {
+          "seed": 40,
+          "final_error_m": 539.32744673007,
+          "final_1sigma_rss_m": 1249.0875876544405,
+          "received_count": 7
+        }
+      ]
+    },
+    "high_elevation_mask": {
+      "seed": 29,
+      "final_error_m": 3147.890237363119,
+      "final_1sigma_rss_m": 13729.433124084091,
+      "final_thrust_scale": 1.0,
+      "packet_count": 0,
+      "received_count": 0,
+      "in_flight_count": 0,
+      "visible_intervals": 0,
+      "mean_nis_received": null,
+      "runs": 12,
+      "median_final_position_error_m": 3147.890237363119,
+      "p90_final_position_error_m": 3147.890237363119,
+      "coverage_below_1sigma_rss_fraction": 1.0,
+      "run_seeds": [
+        {
+          "seed": 29,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 30,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 31,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 32,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 33,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 34,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 35,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 36,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 37,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 38,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 39,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        },
+        {
+          "seed": 40,
+          "final_error_m": 3147.890237363119,
+          "final_1sigma_rss_m": 13729.433124084091,
+          "received_count": 0
+        }
+      ]
+    },
+    "long_packet_latency": {
+      "seed": 29,
+      "final_error_m": 243.1215186802942,
+      "final_1sigma_rss_m": 881.7646279083209,
+      "final_thrust_scale": 1.0493172417730279,
+      "packet_count": 9,
+      "received_count": 9,
+      "in_flight_count": 0,
+      "visible_intervals": 9,
+      "mean_nis_received": 0.2979285406467689,
+      "runs": 12,
+      "median_final_position_error_m": 338.65636886407185,
+      "p90_final_position_error_m": 664.3106510464722,
+      "coverage_below_1sigma_rss_fraction": 1.0,
+      "run_seeds": [
+        {
+          "seed": 29,
+          "final_error_m": 243.1215186802942,
+          "final_1sigma_rss_m": 881.7646279083209,
+          "received_count": 9
+        },
+        {
+          "seed": 30,
+          "final_error_m": 211.59695223014833,
+          "final_1sigma_rss_m": 883.3562949209097,
+          "received_count": 9
+        },
+        {
+          "seed": 31,
+          "final_error_m": 813.5416382755072,
+          "final_1sigma_rss_m": 881.72305745895,
+          "received_count": 9
+        },
+        {
+          "seed": 32,
+          "final_error_m": 548.1446013435245,
+          "final_1sigma_rss_m": 882.063788744649,
+          "received_count": 9
+        },
+        {
+          "seed": 33,
+          "final_error_m": 81.34077507456068,
+          "final_1sigma_rss_m": 882.8633833974883,
+          "received_count": 9
+        },
+        {
+          "seed": 34,
+          "final_error_m": 429.60352071074203,
+          "final_1sigma_rss_m": 881.591981439084,
+          "received_count": 9
+        },
+        {
+          "seed": 35,
+          "final_error_m": 217.87526549750584,
+          "final_1sigma_rss_m": 882.1666411714045,
+          "received_count": 9
+        },
+        {
+          "seed": 36,
+          "final_error_m": 665.2401251834275,
+          "final_1sigma_rss_m": 881.39661594213,
+          "received_count": 9
+        },
+        {
+          "seed": 37,
+          "final_error_m": 486.3039428429703,
+          "final_1sigma_rss_m": 880.4892153880186,
+          "received_count": 9
+        },
+        {
+          "seed": 38,
+          "final_error_m": 655.9453838138743,
+          "final_1sigma_rss_m": 881.4067619954093,
+          "received_count": 9
+        },
+        {
+          "seed": 39,
+          "final_error_m": 105.8614168558608,
+          "final_1sigma_rss_m": 881.8704610923345,
+          "received_count": 9
+        },
+        {
+          "seed": 40,
+          "final_error_m": 247.7092170174017,
+          "final_1sigma_rss_m": 882.0278612853541,
+          "received_count": 9
+        }
+      ]
+    },
+    "persistent_range_bias": {
+      "seed": 29,
+      "final_error_m": 1990.0483590873762,
+      "final_1sigma_rss_m": 878.1592589680525,
+      "final_thrust_scale": 1.0523910942621117,
+      "packet_count": 9,
+      "received_count": 9,
+      "in_flight_count": 0,
+      "visible_intervals": 9,
+      "mean_nis_received": 27.777608239234812,
+      "runs": 12,
+      "median_final_position_error_m": 2101.2191668887162,
+      "p90_final_position_error_m": 2422.269976814623,
+      "coverage_below_1sigma_rss_fraction": 0.0,
+      "run_seeds": [
+        {
+          "seed": 29,
+          "final_error_m": 1990.0483590873762,
+          "final_1sigma_rss_m": 878.1592589680525,
+          "received_count": 9
+        },
+        {
+          "seed": 30,
+          "final_error_m": 1376.909599050904,
+          "final_1sigma_rss_m": 880.7488951014001,
+          "received_count": 9
+        },
+        {
+          "seed": 31,
+          "final_error_m": 2334.981291036441,
+          "final_1sigma_rss_m": 879.7631881775592,
+          "received_count": 9
+        },
+        {
+          "seed": 32,
+          "final_error_m": 2234.3466832226454,
+          "final_1sigma_rss_m": 878.7978941661013,
+          "received_count": 9
+        },
+        {
+          "seed": 33,
+          "final_error_m": 1639.478707521903,
+          "final_1sigma_rss_m": 879.2884681635463,
+          "received_count": 9
+        },
+        {
+          "seed": 34,
+          "final_error_m": 2143.1225983950044,
+          "final_1sigma_rss_m": 878.1710851032007,
+          "received_count": 9
+        },
+        {
+          "seed": 35,
+          "final_error_m": 2059.315735382428,
+          "final_1sigma_rss_m": 877.812211205967,
+          "received_count": 9
+        },
+        {
+          "seed": 36,
+          "final_error_m": 2443.3001324784914,
+          "final_1sigma_rss_m": 877.6665005108979,
+          "received_count": 9
+        },
+        {
+          "seed": 37,
+          "final_error_m": 2423.6272180878263,
+          "final_1sigma_rss_m": 875.7763765630917,
+          "received_count": 9
+        },
+        {
+          "seed": 38,
+          "final_error_m": 2410.0548053557945,
+          "final_1sigma_rss_m": 877.6332455738116,
+          "received_count": 9
+        },
+        {
+          "seed": 39,
+          "final_error_m": 1817.8777007407655,
+          "final_1sigma_rss_m": 878.7166997100971,
+          "received_count": 9
+        },
+        {
+          "seed": 40,
+          "final_error_m": 1986.4671570072053,
+          "final_1sigma_rss_m": 878.4619647858601,
+          "received_count": 9
+        }
+      ]
+    }
+  }
+}

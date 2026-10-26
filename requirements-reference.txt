@@ -1,0 +1,2 @@
+astropy>=6.0
+ppigrf>=2.0

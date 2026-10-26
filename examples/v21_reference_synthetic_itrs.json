@@ -1,0 +1,156 @@
+{
+  "reference_id": "APOGEE-v21-SYNTHETIC-ITRS-EXAMPLE",
+  "provenance": "synthetic",
+  "records": [
+    {
+      "epoch_utc": "2026-10-25T12:00:00Z",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "frame": "ITRS",
+      "state": {
+        "position_km": [
+          -1908.830794763524,
+          -3672.4097022316123,
+          4737.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "observed": {
+        "range_m": 492546.41424099,
+        "range_rate_m_s": 982.6624999696586
+      }
+    },
+    {
+      "epoch_utc": "2026-10-25T12:00:10Z",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "frame": "ITRS",
+      "state": {
+        "position_km": [
+          -1900.830794763524,
+          -3676.4097022316123,
+          4749.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "observed": {
+        "range_m": 502495.76118904253,
+        "range_rate_m_s": 1007.7556839738425
+      }
+    },
+    {
+      "epoch_utc": "2026-10-25T12:00:20Z",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "frame": "ITRS",
+      "state": {
+        "position_km": [
+          -1892.830794763524,
+          -3680.4097022316123,
+          4761.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "observed": {
+        "range_m": 512696.84101168794,
+        "range_rate_m_s": 1031.4227580385482
+      }
+    },
+    {
+      "epoch_utc": "2026-10-25T12:00:30Z",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "frame": "ITRS",
+      "state": {
+        "position_km": [
+          -1884.830794763524,
+          -3684.4097022316123,
+          4773.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "observed": {
+        "range_m": 523119.4008239388,
+        "range_rate_m_s": 1053.6651108477615
+      }
+    },
+    {
+      "epoch_utc": "2026-10-25T12:00:40Z",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "frame": "ITRS",
+      "state": {
+        "position_km": [
+          -1876.830794763524,
+          -3688.4097022316123,
+          4785.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "observed": {
+        "range_m": 533765.9927908214,
+        "range_rate_m_s": 1074.6422489849745
+      }
+    },
+    {
+      "epoch_utc": "2026-10-25T12:00:50Z",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "frame": "ITRS",
+      "state": {
+        "position_km": [
+          -1868.830794763524,
+          -3692.4097022316123,
+          4797.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "observed": {
+        "range_m": 544607.9521676041,
+        "range_rate_m_s": 1094.3511985566151
+      }
+    }
+  ]
+}

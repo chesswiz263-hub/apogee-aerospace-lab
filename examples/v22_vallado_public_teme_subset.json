@@ -1,0 +1,27 @@
+{
+  "schema":"apogee.sgp4-reference.v1",
+  "source_kind":"published_software_verification_vectors_not_spacecraft_observations",
+  "provenance":{
+    "title":"Vallado et al. SGP4 verification input/output, subset of satellite 00005",
+    "tle_url":"https://raw.githubusercontent.com/brandon-rhodes/python-sgp4/master/sgp4/SGP4-VER.TLE",
+    "vectors_url":"https://raw.githubusercontent.com/brandon-rhodes/python-sgp4/master/sgp4/tcppver.out",
+    "retrieved_context_date":"2026-10-25",
+    "integrity":"Manually transcribed subset; source commit not pinned; verify upstream before operational use"
+  },
+  "frame":"TEME",
+  "time_unit":"minutes_since_tle_epoch",
+  "position_unit":"km",
+  "velocity_unit":"km/s",
+  "satellites":[{
+    "catalog_id":5,
+    "tle_line1":"1 00005U 58002B   00179.78495062  .00000023  00000-0  28098-4 0  4753",
+    "tle_line2":"2 00005  34.2682 348.7242 1859667 331.7664  19.3264 10.82419157413667",
+    "samples":[
+      {"minutes":0,"position_km":[7022.46529266,-1400.08296755,0.03995155],"velocity_km_s":[1.893841015,6.405893759,4.534807250]},
+      {"minutes":360,"position_km":[-7154.03120202,-3783.17682504,-3536.19412294],"velocity_km_s":[4.741887409,-4.151817765,-2.093935425]},
+      {"minutes":720,"position_km":[-7134.59340119,6531.68641334,3260.27186483],"velocity_km_s":[-4.113793027,-2.911922039,-2.557327851]},
+      {"minutes":1080,"position_km":[5568.53901181,4492.06992591,3863.87641983],"velocity_km_s":[-4.209106476,5.159719888,2.744852980]},
+      {"minutes":1440,"position_km":[-938.55923943,-6268.18748831,-4294.02924751],"velocity_km_s":[7.536105209,-0.427127707,0.989878080]}
+    ]
+  }]
+}

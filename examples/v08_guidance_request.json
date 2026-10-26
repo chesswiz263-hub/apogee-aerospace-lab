@@ -1,0 +1,14 @@
+{
+  "altitude_km": 400,
+  "inclination_deg": 51.6,
+  "duration_minutes": 90,
+  "measurement_interval_s": 90,
+  "measurement_sigma_m": 30,
+  "initial_position_error_m": 600,
+  "initial_velocity_error_m_s": 0.4,
+  "max_total_delta_v_m_s": 2.0,
+  "guidance_enabled": true,
+  "corrections": 3,
+  "seed": 42,
+  "j2_enabled": false
+}

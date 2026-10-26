@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070f1b" />
+  <title>APOGEE · Orbital Dynamics Lab</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="branding">
+        <div class="brand-mark"><span></span></div>
+        <div><div class="brand-title">APOGEE<span class="brand-dot">.</span></div><div class="brand-subtitle">AEROSPACE PHYSICS & ORBITAL GUIDANCE</div></div>
+      </div>
+      <div class="header-center"><span class="eyebrow">MISSION CONTROL</span><span class="separator"></span><span>ORBITAL DYNAMICS LABORATORY</span></div>
+      <div class="header-right"><span class="status-light"></span><span>PHYSICS ENGINE <b id="engine-status">CONNECTING</b></span><span class="version">v2.4.0</span></div>
+    </header>
+
+    <div class="page-grid">
+      <aside class="left-panel panel">
+        <div class="section-head"><div><div class="overline">01 / CONFIGURATION</div><h2>Mission designer</h2></div><span class="small-glyph">✦</span></div>
+        <div class="mode-tabs" role="tablist" aria-label="Simulation mode">
+          <button class="mode-tab active" id="mode-orbit" aria-selected="true" role="tab">Orbit</button>
+          <button class="mode-tab" id="mode-transfer" aria-selected="false" role="tab">Transfer</button>
+          <button class="mode-tab" id="mode-mission" aria-selected="false" role="tab">Thrust lab</button>
+          <button class="mode-tab" id="mode-perturb" aria-selected="false" role="tab">J₂ + Drag</button>
+          <button class="mode-tab" id="mode-satellite" aria-selected="false" role="tab">Catalog</button>
+          <button class="mode-tab" id="mode-target" aria-selected="false" role="tab">Targeting</button>
+          <button class="mode-tab" id="mode-reference" aria-selected="false" role="tab">Reference</button>
+          <button class="mode-tab" id="mode-optimize" aria-selected="false" role="tab">Optimize</button>
+          <button class="mode-tab" id="mode-finite" aria-selected="false" role="tab">Finite burns</button>
+          <button class="mode-tab" id="mode-uncertainty" aria-selected="false" role="tab">Uncertainty</button>
+          <button class="mode-tab" id="mode-guidance" aria-selected="false" role="tab">Guidance</button>
+          <button class="mode-tab" id="mode-robust" aria-selected="false" role="tab">Robust GNC</button>
+          <button class="mode-tab" id="mode-attitude" aria-selected="false" role="tab">Attitude</button>
+          <button class="mode-tab" id="mode-adcs" aria-selected="false" role="tab">ADCS v1.1</button>
+          <button class="mode-tab" id="mode-precision" aria-selected="false" role="tab">Precision ADCS v1.2</button>
+          <button class="mode-tab" id="mode-integrated" aria-selected="false" role="tab">Integrated Nav v1.4</button>
+          <button class="mode-tab" id="mode-joint" aria-selected="false" role="tab">Joint Nav v1.5</button>
+          <button class="mode-tab" id="mode-integrity" aria-selected="false" role="tab">Integrity v1.6</button>
+          <button class="mode-tab" id="mode-joint-integrity" aria-selected="false" role="tab">Joint Integrity v1.7</button>
+          <button class="mode-tab" id="mode-adaptive" aria-selected="false" role="tab">Adaptive Nav v1.8</button>
+          <button class="mode-tab" id="mode-ground" aria-selected="false" role="tab">Ground Nav v2.0</button>
+          <button class="mode-tab" id="mode-v22" aria-selected="false" role="tab">Benchmarks v2.4</button>
+          <button class="mode-tab" id="mode-geodesy" aria-selected="false" role="tab">Real Frames v2.1</button>
+          <button class="mode-tab" id="mode-observability" aria-selected="false" role="tab">Observability v1.9</button>
+          <button class="mode-tab" id="mode-epoch" aria-selected="false" role="tab">Epoch references v1.4</button>
+          <button class="mode-tab" id="mode-validate" aria-selected="false" role="tab">Validate</button>
+        </div>
+
+        <form id="orbit-form" class="controls" autocomplete="off">
+          <div class="field-heading"><span>INITIAL CONDITIONS</span><span class="field-index">KEPLERIAN</span></div>
+          <label class="field"><span class="field-label">Orbit preset</span>
+            <select id="preset"><option value="Low Earth orbit">Low Earth orbit · ISS-like</option><option value="Elliptical orbit">Elliptical orbit</option><option value="Sun-synchronous-like">Polar · 98.2°</option><option value="Geostationary-height">GEO altitude</option></select></label>
+          <div class="divider-line"></div>
+          <label class="field"><span class="field-label">Perigee altitude <span class="unit">km</span></span><input id="perigee_altitude_km" type="number" min="160" max="50000" step="10" value="400" required /></label>
+          <label class="field"><span class="field-label">Eccentricity <span class="unit">0–0.75</span></span><input id="eccentricity" type="number" min="0" max="0.75" step="0.01" value="0" required /></label>
+          <label class="field"><span class="field-label">Inclination <span class="unit">deg</span></span><input id="inclination_deg" type="number" min="0" max="180" step="0.1" value="51.6" required /></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">RAAN <span class="unit">°</span></span><input id="raan_deg" type="number" min="0" max="360" step="0.1" value="30" required /></label>
+            <label class="field"><span class="field-label">Arg. periapsis <span class="unit">°</span></span><input id="argument_of_periapsis_deg" type="number" min="0" max="360" step="0.1" value="0" required /></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">True anomaly <span class="unit">°</span></span><input id="true_anomaly_deg" type="number" min="0" max="360" step="1" value="0" required /></label>
+            <label class="field"><span class="field-label">Velocity factor <span class="unit">×</span></span><input id="velocity_factor" type="number" min="0.8" max="1.15" step="0.01" value="1" required /></label>
+          </div>
+          <div class="field-heading secondary"><span>SPACECRAFT & SOLVER</span><span class="field-index">NUMERICAL</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Mass <span class="unit">kg</span></span><input id="spacecraft_mass_kg" type="number" min="1" max="1000000" value="750" required /></label>
+            <label class="field"><span class="field-label">Duration <span class="unit">orbits</span></span><input id="duration_orbits" type="number" min="0.25" max="8" step="0.25" value="2" required /></label>
+          </div>
+          <label class="field"><span class="field-label">Integrator resolution</span><select id="samples_per_orbit"><option value="120">120 steps / orbit · fast</option><option value="240" selected>240 steps / orbit · balanced</option><option value="480">480 steps / orbit · precise</option><option value="720">720 steps / orbit · high precision</option></select></label>
+          <button type="submit" class="primary-button" id="orbit-submit"><span class="run-icon">▶</span> PROPAGATE ORBIT <span class="button-arrow">↗</span></button>
+        </form>
+
+        <form id="transfer-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>HOHMANN TRANSFER</span><span class="field-index">2 IMPULSES</span></div>
+          <p class="hint">Plan an ideal coplanar transfer between two circular Earth orbits. The transfer arc is numerically propagated, not hand-drawn.</p>
+          <label class="field"><span class="field-label">Departure altitude <span class="unit">km</span></span><input id="start_altitude_km" type="number" min="160" max="50000" value="400" required /></label>
+          <label class="field"><span class="field-label">Destination altitude <span class="unit">km</span></span><input id="target_altitude_km" type="number" min="160" max="50000" value="700" required /></label>
+          <label class="field"><span class="field-label">Inclination <span class="unit">deg</span></span><input id="transfer_inclination_deg" type="number" min="0" max="180" step="0.1" value="28.5" required /></label>
+          <div class="field-heading secondary"><span>ROCKET EQUATION · FUEL CHECK</span><span class="field-index">MASS</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Dry mass <span class="unit">kg</span></span><input id="transfer_dry_kg" type="number" min="1" max="1000000" value="600" required /></label>
+            <label class="field"><span class="field-label">Propellant <span class="unit">kg</span></span><input id="transfer_prop_kg" type="number" min="0" max="1000000" value="150" required /></label>
+          </div>
+          <label class="field"><span class="field-label">Specific impulse <span class="unit">seconds</span></span><input id="transfer_isp_s" type="number" min="50" max="5000" value="315" required /></label>
+          <label class="field"><span class="field-label">Integrator samples</span><select id="transfer_samples"><option value="180">180 samples</option><option value="360" selected>360 samples</option><option value="720">720 samples</option><option value="1200">1200 samples</option></select></label>
+          <button type="submit" class="primary-button" id="transfer-submit"><span class="run-icon">✧</span> DESIGN TRANSFER <span class="button-arrow">↗</span></button>
+          <div class="info-note">∆v is determined by the vis-viva equation. Ideal impulses use mass-dependent fuel consumption. Finite burns, gravity losses and plane-change costs are excluded.</div>
+        </form>
+
+        <form id="mission-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>CONTINUOUS PROPULSION</span><span class="field-index">RK4 · 7 STATES</span></div>
+          <p class="hint">Schedule one or more finite burns. APOGEE propagates position, velocity, and changing spacecraft mass through every maneuver.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Perigee alt. <span class="unit">km</span></span><input id="mission_altitude" type="number" min="160" max="50000" value="400" required /></label>
+            <label class="field"><span class="field-label">Eccentricity</span><input id="mission_ecc" type="number" min="0" max="0.75" step="0.01" value="0" required /></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="mission_inc" type="number" min="0" max="180" step="0.1" value="51.6" required /></label>
+            <label class="field"><span class="field-label">RAAN <span class="unit">°</span></span><input id="mission_raan" type="number" min="0" max="360" step="0.1" value="30" required /></label>
+          </div>
+          <div class="field-heading secondary"><span>SPACECRAFT</span><span class="field-index">PROPULSION</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Dry mass <span class="unit">kg</span></span><input id="mission_dry" type="number" min="1" max="1000000" value="600" required /></label>
+            <label class="field"><span class="field-label">Propellant <span class="unit">kg</span></span><input id="mission_prop" type="number" min="0" max="1000000" value="150" required /></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Duration <span class="unit">min</span></span><input id="mission_duration" type="number" min="5" max="1440" value="120" required /></label>
+            <label class="field"><span class="field-label">Samples</span><select id="mission_samples"><option value="300">300 · fast</option><option value="600" selected>600 · standard</option><option value="1200">1200 · detailed</option><option value="2400">2400 · precise</option></select></label>
+          </div>
+          <div class="field-heading secondary"><span>COUPLED FORCE MODEL</span><span class="field-index">v0.4 · RK4</span></div>
+          <p class="hint">Earth point gravity, changing wet-mass propulsion, and optional Earth J₂ / rotating-atmosphere drag are calculated simultaneously.</p>
+          <div class="check-row"><label><input type="checkbox" id="m-j2" checked> Earth J₂</label><label><input type="checkbox" id="m-drag"> Atmospheric drag</label></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Cross-section <span class="unit">m²</span></span><input id="m-area" type="number" min="0" max="10000" step="0.1" value="5" required></label>
+            <label class="field"><span class="field-label">Drag C<sub>D</sub></span><input id="m-cd" type="number" min="0.1" max="5" step="0.1" value="2.2" required></label>
+          </div>
+          <label class="field"><span class="field-label">Density at 400 km <span class="unit">kg/m³</span></span><input id="m-density" type="number" min="0" max="0.00000001" step="any" value="3.725e-12" required></label>
+          <div class="field-heading secondary"><span>MANEUVER TIMELINE</span><span class="field-index">FINITE BURNS</span></div>
+          <div id="burn-list" class="burn-list" aria-live="polite"></div>
+          <button id="add-burn" class="add-burn" type="button">＋ ADD MANEUVER</button>
+          <button type="submit" class="primary-button" id="mission-submit"><span class="run-icon">▶</span> PROPAGATE MISSION <span class="button-arrow">↗</span></button>
+          <button type="button" class="outline-button comparison-button" id="compare-submit">⇄ COMPARE WITH TWO-BODY BASELINE</button>
+          <p class="hint">Same starting state, engine commands, epoch, and timeline; compare a point-mass reference against your selected J₂ / drag model. Orbital divergence is a model sensitivity, not a prediction error.</p>
+          <div class="info-note">Direction follows the local orbital frame throughout each burn. Max thrust is constant at the chosen throttle; fuel exhaustion automatically ends thrust.</div>
+        </form>
+
+        <form id="perturb-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>EARTH HARMONICS & ATMOSPHERE</span><span class="field-index">v0.3</span></div>
+          <p class="hint">Integrate the actual J₂ and drag accelerations. Drag uses an educational exponential density approximation, not a space-weather forecast.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Perigee altitude <span class="unit">km</span></span><input id="p-alt" type="number" min="180" max="50000" value="400" required></label>
+            <label class="field"><span class="field-label">Eccentricity</span><input id="p-ecc" type="number" min="0" max=".65" step=".01" value="0" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="p-inc" type="number" min="0" max="180" step=".1" value="51.6" required></label>
+            <label class="field"><span class="field-label">RAAN <span class="unit">°</span></span><input id="p-raan" type="number" min="0" max="360" value="30" required></label>
+          </div>
+          <div class="check-row"><label><input type="checkbox" id="p-j2" checked> Earth J₂ oblateness</label><label><input type="checkbox" id="p-drag"> Atmospheric drag</label></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Spacecraft mass <span class="unit">kg</span></span><input id="p-mass" type="number" min="1" max="1000000" value="750" required></label>
+            <label class="field"><span class="field-label">Drag area <span class="unit">m²</span></span><input id="p-area" type="number" min="0" max="10000" step=".1" value="5" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Drag C<sub>D</sub></span><input id="p-cd" type="number" min=".1" max="5" step=".1" value="2.2" required></label>
+            <label class="field"><span class="field-label">Scale height <span class="unit">km</span></span><input id="p-scale" type="number" min="1" max="200" step="1" value="58.515" required></label>
+          </div>
+          <label class="field"><span class="field-label">Density at 400 km <span class="unit">kg/m³</span></span><input id="p-density" type="number" min="0" max="0.00000001" step="any" value="3.725e-12" required></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Duration <span class="unit">hours</span></span><input id="p-hours" type="number" min=".1" max="168" step=".5" value="18" required></label>
+            <label class="field"><span class="field-label">Samples</span><select id="p-samples"><option>360</option><option selected>720</option><option>1200</option></select></label>
+          </div>
+          <button type="submit" class="primary-button" id="perturb-submit"><span class="run-icon">✧</span> INTEGRATE FORCES <span class="button-arrow">↗</span></button>
+          <div class="info-note">J₂ conserves full mechanical energy (including J₂ potential) and axial angular momentum; drag dissipates orbital energy. Read the warnings before interpreting results.</div>
+        </form>
+
+        <form id="satellite-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>CATALOG ORBIT TRACKER</span><span class="field-index">SGP4 · TEME</span></div>
+          <p class="hint">Fetch an up-to-date CelesTrak OMM/JSON record by catalog number, or paste/import an OMM record saved locally. Propagation uses the SGP4 library.</p>
+          <label class="field"><span class="field-label">NORAD catalog number</span><input id="s-catnr" type="number" min="1" max="999999999" value="25544"></label>
+          <button id="s-fetch" type="button" class="outline-button">↻ FETCH CelesTrak OMM</button>
+          <label class="field"><span class="field-label">OMM JSON (single record)</span><textarea id="s-omm" rows="7" placeholder="Fetch by catalog number or paste an OMM/JSON object here."></textarea></label>
+          <label class="field"><span class="field-label">Import local .json file</span><input id="s-file" type="file" accept=".json,application/json"></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Duration <span class="unit">minutes</span></span><input id="s-duration" type="number" min="1" max="1440" value="180" required></label>
+            <label class="field"><span class="field-label">Samples</span></span><select id="s-samples"><option>180</option><option selected>360</option><option>720</option></select></label>
+          </div>
+          <p id="s-source-status" class="hint" role="status">No satellite record loaded.</p>
+          <button type="submit" class="primary-button" id="satellite-submit"><span class="run-icon">◉</span> TRACK SATELLITE <span class="button-arrow">↗</span></button>
+          <div class="info-note">Satellite state vectors use TEME coordinates. This is not an Earth-fixed map or certified conjunction-screening product. Live fetch requires an internet connection.</div>
+        </form>
+        <form id="target-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>NUMERICAL APSIS TARGETING</span><span class="field-index">v0.5 · BISECTION</span></div>
+          <p class="hint">Solve the required tangential impulse to raise/lower the opposite apsis from a circular starting orbit. Verify arrival by RK4 integration. Ideal two-body, not finite thrust.</p>
+          <label class="field"><span class="field-label">Starting circular altitude <span class="unit">km</span></span><input id="t-start" type="number" min="160" max="50000" value="400" required></label>
+          <label class="field"><span class="field-label">Target circular altitude <span class="unit">km</span></span><input id="t-target" type="number" min="160" max="50000" value="700" required></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Inclination <span class="unit">deg</span></span><input id="t-inc" type="number" min="0" max="180" step="0.5" value="28.5" required></label>
+            <label class="field"><span class="field-label">Samples</span></span><select id="t-samples"><option value="250">250</option><option value="500" selected>500</option><option value="1000">1000</option></select></label>
+          </div>
+          <div class="field-heading secondary"><span>SPACECRAFT FUEL BUDGET</span><span class="field-index">TWO IMPULSES</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Dry mass <span class="unit">kg</span></span><input id="t-dry" type="number" min="1" max="1000000" value="600" required></label>
+            <label class="field"><span class="field-label">Propellant <span class="unit">kg</span></span><input id="t-prop" type="number" min="0" max="1000000" value="150" required></label>
+          </div>
+          <label class="field"><span class="field-label">Specific impulse <span class="unit">s</span></span><input id="t-isp" type="number" min="50" max="5000" value="315" required></label>
+          <button type="submit" id="target-submit" class="primary-button"><span class="run-icon">⌖</span> SOLVE MANEUVER <span class="button-arrow">↗</span></button>
+          <div class="info-note">Root tolerance is reported separately from the propagated RK4 arrival error. Does not optimize phasing, inclination, burn time or perturbations.</div>
+        </form>
+
+        <form id="reference-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>HORIZONS VECTOR IMPORT</span><span class="field-index">ICRF · TDB</span></div>
+          <p class="hint">Paste a <a href="https://ssd-api.jpl.nasa.gov/doc/horizons.html" target="_blank" rel="noopener noreferrer">JPL Horizons</a> output using VECTORS, Earth-center 500@399, REF_PLANE=FRAME, REF_SYSTEM=ICRF, OUT_UNITS=KM-S, VEC_CORR=NONE, TIME_TYPE=TDB, VEC_TABLE=2, CSV_FORMAT=YES. Source text is not authenticated.</p>
+          <label class="field"><span class="field-label">Raw Horizons text</span><textarea id="r-text" rows="10" placeholder="Paste a text ephemeris with $$SOE, Julian dates + six state components, then $$EOE"></textarea></label>
+          <label class="field"><span class="field-label">Or import a local .txt file</span><input id="r-file" type="file" accept=".txt,text/plain"></label>
+          <label class="check-row confirm-row"><input type="checkbox" id="r-confirm" required> I verified that these frame, epoch, correction and units settings match my source.</label>
+          <button type="submit" class="primary-button" id="reference-submit"><span class="run-icon">◎</span> VIEW REFERENCE VECTORS <span class="button-arrow">↗</span></button>
+          <div class="field-heading secondary"><span>UNIFORM EARTH SPIN FRAMES</span><span class="field-index">EDUCATIONAL</span></div>
+          <p class="hint">Convert one position and velocity from ideal ECI to uniformly rotating ECEF (or reverse), with a user-provided Greenwich angle. Not equivalent to a precise TEME–ITRS transform.</p>
+          <label class="field"><span class="field-label">Input state <span class="unit">X,Y,Z,VX,VY,VZ</span></span><input id="f-state" value="6778.137,0,0,0,7.6686,0" aria-label="Six-vector state in km and km per second"></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Angle at t₀ <span class="unit">deg</span></span><input id="f-angle" type="number" value="0" min="-360" max="360" step="any"></label>
+            <label class="field"><span class="field-label">Elapsed <span class="unit">s</span></span><input id="f-time" type="number" value="0" step="any"></label>
+          </div>
+          <label class="field"><span class="field-label">Direction</span><select id="f-direction"><option value="eci_to_ecef">ECI → rotating ECEF</option><option value="ecef_to_eci">Rotating ECEF → ECI</option></select></label>
+          <button type="button" class="outline-button" id="f-transform">TRANSFORM STATE</button>
+          <pre id="f-output" class="frame-output" aria-live="polite">Enter a six-component state to convert frames.</pre>
+          <div class="info-note">Precise TEME → ITRS / GCRS conversions are available via the optional Astropy API /api/frames/teme after installation, with IERS-data limitations.</div>
+        </form>
+
+        <form id="optimize-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>EVENT-BASED MISSION SEARCH</span><span class="field-index">v0.6 · DOP853</span></div>
+          <p class="hint">Solve the first opposite apsis by radial-velocity event detection, then search a finite grid of departure phases for minimum ideal two-impulse fuel. This is <b>not</b> a globally optimal finite-burn solution.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Start altitude <span class="unit">km</span></span><input id="o-start" type="number" min="180" max="20000" value="400" required></label>
+            <label class="field"><span class="field-label">Target altitude <span class="unit">km</span></span><input id="o-target" type="number" min="180" max="20000" value="700" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="o-inc" type="number" min="0" max="180" value="51.6" step="0.1" required></label>
+            <label class="field"><span class="field-label">Phase candidates</span></span><select id="o-phases"><option value="1">1 · baseline</option><option value="4">4 · quick</option><option value="8" selected>8 · balanced</option><option value="12">12 · detailed</option></select></label>
+          </div>
+          <label class="check-row"><input id="o-j2" type="checkbox" checked> Include J₂ during transfer propagation</label>
+          <div class="field-heading secondary"><span>SPACECRAFT &amp; IDEAL FUEL</span><span class="field-index">TWO IMPULSES</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Dry mass <span class="unit">kg</span></span><input id="o-dry" type="number" min="1" value="600" required></label>
+            <label class="field"><span class="field-label">Fuel available <span class="unit">kg</span></span><input id="o-fuel" type="number" min="0" value="150" required></label>
+          </div>
+          <label class="field"><span class="field-label">Specific impulse <span class="unit">s</span></span><input id="o-isp" type="number" min="50" max="5000" value="315" required></label>
+          <button type="submit" class="primary-button" id="optimize-submit"><span class="run-icon">⌖</span> OPTIMIZE IMPULSIVE MISSION <span class="button-arrow">↗</span></button>
+          <div class="info-note">The opposite apsis is found by an ODE root event; the departure burn is numerically targeted with Brent’s method. Lowest propellant among the sampled departure phases wins. No launch-window or finite-burn optimization is claimed.</div>
+        </form>
+
+        <form id="finite-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>FINITE-THRUST MANEUVER TARGETING</span><span class="field-index">v0.7 · ENGINE MODEL</span></div>
+          <p class="hint">Optimize two actual engine firing durations with continuous acceleration and propellant depletion. Circularization can retain a residual eccentricity; the result is not globally optimal.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Start altitude <span class="unit">km</span></span><input id="fb-start" type="number" min="200" max="3000" value="400" required></label>
+            <label class="field"><span class="field-label">Target altitude <span class="unit">km</span></span><input id="fb-target" type="number" min="200" max="3000" value="700" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="fb-inc" type="number" min="0" max="180" value="51.6" step="0.1" required></label>
+            <label class="field"><span class="field-label">Departure phases</span></span><select id="fb-phases"><option value="1">1 · fast</option><option value="4" selected>4 · balanced</option><option value="8">8 · detailed</option></select></label>
+          </div>
+          <label class="check-row"><input id="fb-j2" type="checkbox"> Include J₂ during engine optimization</label>
+          <div class="field-heading secondary"><span>PROPULSION &amp; MASS</span><span class="field-index">CONTINUOUS THRUST</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Dry mass <span class="unit">kg</span></span><input id="fb-dry" type="number" min="1" value="600" required></label>
+            <label class="field"><span class="field-label">Propellant <span class="unit">kg</span></span><input id="fb-fuel" type="number" min="0.01" step="any" value="150" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Thrust <span class="unit">N</span></span><input id="fb-thrust" type="number" min="10" max="1000000" value="850" required></label>
+            <label class="field"><span class="field-label">Specific impulse <span class="unit">s</span></span><input id="fb-isp" type="number" min="50" max="5000" value="315" required></label>
+          </div>
+          <button type="submit" class="primary-button" id="finite-submit"><span class="run-icon">⚙</span> SOLVE FINITE BURNS <span class="button-arrow">↗</span></button>
+          <div class="info-note">Burn #1 targets the first opposite apsis. Burn #2 begins at that apsis, and its duration minimizes postburn osculating eccentricity. Explicitly bounded by onboard fuel.</div>
+        </form>
+        <form id="uncertainty-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>INITIAL-STATE UNCERTAINTY</span><span class="field-index">v0.7 · MONTE CARLO</span></div>
+          <p class="hint">Propagate Gaussian errors in spacecraft position and velocity; estimate 3D position uncertainty and compute the 6×6 state transition matrix. No operational collision probability is inferred.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude <span class="unit">km</span></span><input id="u-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="u-inc" type="number" min="0" max="180" value="51.6" required></label>
+          </div>
+          <label class="field"><span class="field-label">Propagation duration <span class="unit">minutes</span></span><input id="u-minutes" type="number" min="1" max="480" value="90" required></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Position σ <span class="unit">m / axis</span></span><input id="u-pos" type="number" min="0.0001" step="any" max="10000" value="100" required></label>
+            <label class="field"><span class="field-label">Velocity σ <span class="unit">mm/s / axis</span></span><input id="u-vel" type="number" min="0.0001" step="any" max="1000" value="10" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Monte Carlo samples</span></span><select id="u-samples"><option value="16">16 · fast</option><option value="32">32 · quick</option><option value="64" selected>64 · balanced</option><option value="128">128 · detailed</option></select></label>
+            <label class="field"><span class="field-label">Random seed</span></span><input id="u-seed" type="number" min="0" max="2147483647" value="42" step="1" required></label>
+          </div>
+          <label class="check-row"><input id="u-j2" type="checkbox"> Include Earth J₂ in all trajectories</label>
+          <button type="submit" class="primary-button" id="uncertainty-submit"><span class="run-icon">◎</span> PROPAGATE UNCERTAINTY <span class="button-arrow">↗</span></button>
+          <div class="info-note">Errors are independent isotropic Gaussian coordinates at one epoch. Same force model is applied to all samples. The conservative 95% radius assumes local Gaussian linearity.</div>
+        </form>
+        <form id="guidance-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>CLOSED-LOOP GNC LABORATORY</span><span class="field-index">v0.8 · EKF</span></div>
+          <p class="hint">Simulate a 3-axis position sensor and estimate spacecraft state with a nonlinear extended Kalman filter. Guidance applies bounded <b>ideal instantaneous</b> corrections and measures final error against a shared reference orbit.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude <span class="unit">km</span></span><input id="g-alt" type="number" min="200" max="2000" value="400" required></label>
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="g-inc" type="number" min="0" max="180" step="0.1" value="51.6" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Mission duration <span class="unit">min</span></span><input id="g-duration" type="number" min="20" max="180" value="90" required></label>
+            <label class="field"><span class="field-label">Sensor update <span class="unit">s</span></span><select id="g-period"><option value="30">30</option><option value="60">60</option><option value="90" selected>90</option><option value="120">120</option><option value="180">180</option><option value="300">300</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Sensor noise <span class="unit">σ m/axis</span></span><input id="g-noise" type="number" min="0.001" max="1000" step="any" value="30" required></label>
+            <label class="field"><span class="field-label">Injected radial error <span class="unit">m</span></span><input id="g-poserr" type="number" min="0" max="5000" value="600" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Injected velocity error <span class="unit">m/s</span></span><input id="g-velerr" type="number" min="0" max="5" step="0.05" value="0.4" required></label>
+            <label class="field"><span class="field-label">Total Δv budget <span class="unit">m/s</span></span><input id="g-dv" type="number" min="0" max="30" step="0.1" value="2" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Allowed corrections</span></span><select id="g-burns"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option></select></label>
+            <label class="field"><span class="field-label">Random seed</span></span><input id="g-seed" type="number" min="0" max="2147483647" step="1" value="42" required></label>
+          </div>
+          <label class="check-row"><input id="g-enable" type="checkbox" checked> Enable active guidance corrections</label>
+          <label class="check-row"><input id="g-j2" type="checkbox"> Include J₂ in reference, truth and filter</label>
+          <button type="submit" class="primary-button" id="guidance-submit"><span class="run-icon">◎</span> RUN CLOSED-LOOP GUIDANCE <span class="button-arrow">↗</span></button>
+          <div class="info-note">The guidance controller only sees EKF estimates, not ground truth. Sensor measurements and errors are synthetic; burns are ideal impulses with perfect execution. Not flight software.</div>
+        </form>
+
+        <form id="robust-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>ROBUST FINITE-BURN GNC</span><span class="field-index">v0.9 · RANGE/RATE EKF</span></div>
+          <p class="hint">Track a spacecraft from <b>hypothetical Earth-rotating ground stations</b>. Assimilate noisy line-of-sight range/range-rate measurements and correct its trajectory with <b>finite-duration</b>, mass-depleting engine burns. Test uncertain engine thrust and mismatched J₂ models.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude <span class="unit">km</span></span><input id="rg-alt" type="number" min="200" max="2000" value="400" required></label>
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="rg-inc" type="number" min="0" max="180" value="51.6" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Mission duration <span class="unit">min</span></span><input id="rg-duration" type="number" min="30" max="180" value="90" required></label>
+            <label class="field"><span class="field-label">Sensor interval <span class="unit">s</span></span><select id="rg-period"><option>30</option><option>60</option><option selected>90</option><option>120</option><option>180</option><option>300</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Range noise <span class="unit">m · 1σ</span></span><input id="rg-noise" type="number" min="0.01" max="1000" step="any" value="15" required></label>
+            <label class="field"><span class="field-label">Range-rate noise <span class="unit">m/s · 1σ</span></span><input id="rg-rate" type="number" min="0.001" max="5" step="any" value="0.03" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Injected radial error <span class="unit">m</span></span><input id="rg-poserr" type="number" min="0" max="5000" value="600" required></label>
+            <label class="field"><span class="field-label">Velocity error <span class="unit">m/s</span></span><input id="rg-velerr" type="number" min="0" max="5" step="0.05" value="0.4" required></label>
+          </div>
+          <div class="field-heading secondary"><span>ENGINE & ACTUATOR</span><span class="field-index">MASS FLOW</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Engine thrust <span class="unit">N</span></span><input id="rg-thrust" type="number" min="100" max="100000" value="850" required></label>
+            <label class="field"><span class="field-label">Specific impulse <span class="unit">s</span></span><input id="rg-isp" type="number" min="50" max="5000" value="315" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Dry mass <span class="unit">kg</span></span><input id="rg-dry" type="number" min="50" max="100000" value="600" required></label>
+            <label class="field"><span class="field-label">Fuel mass <span class="unit">kg</span></span><input id="rg-fuel" type="number" min="0" max="50000" value="150" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Total nominal Δv <span class="unit">m/s</span></span><input id="rg-dv" type="number" min="0" max="15" step="0.1" value="2" required></label>
+            <label class="field"><span class="field-label">Corrections</span></span><select id="rg-burns"><option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Thrust dispersion <span class="unit">1σ %</span></span><input id="rg-thrust-error" type="number" min="0" max="20" step="any" value="2" required></label>
+            <label class="field"><span class="field-label">Pointing dispersion <span class="unit">1σ °</span></span><input id="rg-pointing" type="number" min="0" max="10" step="any" value="0.25" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Ground station network</span><select id="rg-stations"><option value="3">3 · sparse</option><option value="9">9 · medium</option><option value="18" selected>18 · dense</option></select></label>
+            <label class="field"><span class="field-label">Random seed</span><input id="rg-seed" type="number" min="0" max="2147483647" value="42" required></label>
+          </div>
+          <label class="check-row"><input id="rg-enable" type="checkbox" checked> Enable closed-loop feedback</label>
+          <label class="check-row"><input id="rg-true-j2" type="checkbox" checked> Truth model includes J₂</label>
+          <label class="check-row"><input id="rg-filter-j2" type="checkbox" checked> Navigation filter also models J₂</label>
+          <button type="submit" class="primary-button" id="robust-submit"><span class="run-icon">◎</span> SIMULATE FINITE-BURN GNC <span class="button-arrow">↗</span></button>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Noise seeds in comparison</span><select id="rg-sweep-count"><option value="3">3 · rapid</option><option value="5" selected>5 · balanced</option><option value="10">10 · detailed</option></select></label>
+            <button type="button" class="outline-button" id="rg-sweep">RUN SEED SWEEP</button>
+          </div>
+          <div class="info-note" id="rg-ensemble-status" aria-live="polite">For a small robustness comparison, run multiple reproducible noise seeds. This is not a flight-reliability estimate.</div>
+          <div class="info-note">Synthetic ground range/range-rate geometry. Process noise inflates covariance, and truth/estimator force models can disagree. No attitude, clock, refraction or flight safety modeling. Not flight software.</div>
+        </form>
+        <form id="attitude-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>INTEGRATED ORBIT + ATTITUDE</span><span class="field-index">v1.0 · 14 STATES</span></div>
+          <p class="hint">Rigid-body attitude evolves independently. Engine thrust is fixed to body +X; control torque must actually rotate the spacecraft to point its engine. Quaternion is scalar-first and rotates body → inertial axes.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude <span class="unit">km</span></span><input id="a-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Inclination <span class="unit">°</span></span><input id="a-inc" type="number" min="0" max="180" step="0.1" value="51.6" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Duration <span class="unit">min</span></span><input id="a-duration" type="number" min="1" max="180" value="35" required></label>
+            <label class="field"><span class="field-label">Initial pointing error <span class="unit">°</span></span><input id="a-error" type="number" min="0" max="180" value="25" required></label>
+          </div>
+          <label class="field"><span class="field-label">Point body +X towards</span><select id="a-target"><option value="prograde" selected>Prograde · along velocity</option><option value="retrograde">Retrograde · against velocity</option><option value="inertial_x">Fixed inertial +X</option></select></label>
+          <div class="field-heading secondary"><span>ATTITUDE CONTROL</span><span class="field-index">PD · TORQUE LIMIT</span></div>
+          <label class="check-row"><input id="a-control" type="checkbox" checked> Enable feedback attitude control</label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Max torque <span class="unit">N·m</span></span><input id="a-torque" type="number" min="0" max="50" step="0.01" value="0.25" required></label>
+            <label class="field"><span class="field-label">Stiffness <span class="unit">N·m/rad</span></span><input id="a-kp" type="number" min="0" max="100" step="0.1" value="1.2" required></label>
+          </div>
+          <label class="field"><span class="field-label">Damping <span class="unit">N·m·s/rad</span></span><input id="a-kd" type="number" min="0" max="500" step="0.5" value="18" required></label>
+          <label class="check-row"><input id="a-j2" type="checkbox" checked> Include J₂ orbital gravity</label>
+          <label class="check-row"><input id="a-gradient" type="checkbox"> Include gravity-gradient torque</label>
+          <div class="field-heading secondary"><span>BODY-FIXED PROPULSION</span><span class="field-index">+X AXIS</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Burn start <span class="unit">s</span></span><input id="a-start" type="number" min="0" max="10800" value="300" required></label>
+            <label class="field"><span class="field-label">Duration <span class="unit">s</span></span><input id="a-burn" type="number" min="0" max="10800" value="120" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Engine thrust <span class="unit">N</span></span><input id="a-thrust" type="number" min="0" max="100000" value="850" required></label>
+            <label class="field"><span class="field-label">Specific impulse <span class="unit">s</span></span><input id="a-isp" type="number" min="50" max="5000" value="315" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Dry mass <span class="unit">kg</span></span><input id="a-dry" type="number" min="1" max="1000000" value="600" required></label>
+            <label class="field"><span class="field-label">Fuel mass <span class="unit">kg</span></span><input id="a-fuel" type="number" min="0" max="1000000" value="150" required></label>
+          </div>
+          <button type="submit" class="primary-button" id="attitude-submit"><span class="run-icon">✦</span> INTEGRATE SPACECRAFT <span class="button-arrow">↗</span></button>
+          <div class="info-note">Research-only direct PD torques, constant inertia tensor, no reaction-wheel storage or navigation sensors. Lower torque / turn off control to see thrust-direction errors propagate into the orbit.</div>
+        </form>
+        <form id="adcs-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>ATTITUDE DETERMINATION & CONTROL</span><span class="field-index">v1.1 · 17 STATES</span></div>
+          <p class="hint">A noisy gyro and intermittent star tracker feed a quaternion complementary filter. Three orthogonal reaction wheels apply bounded torque and store angular momentum; no truth-state access by the controller.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude <span class="unit">km</span></span><input id="ad-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Duration <span class="unit">min</span></span><input id="ad-duration" type="number" min="1" max="90" value="18" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Initial pointing offset <span class="unit">deg</span></span><input id="ad-offset" type="number" min="0" max="180" value="25" required></label>
+            <label class="field"><span class="field-label">Initial estimate error <span class="unit">deg</span></span><input id="ad-estimate" type="number" min="0" max="90" value="4" required></label>
+          </div>
+          <label class="field"><span class="field-label">Body +X target</span><select id="ad-target"><option value="prograde">Prograde</option><option value="retrograde">Retrograde</option><option value="inertial_x">Fixed inertial +X</option></select></label>
+          <div class="field-heading secondary"><span>NAVIGATION SENSORS</span><span class="field-index">GYRO + TRACKER</span></div>
+          <label class="check-row"><input id="ad-tracker" type="checkbox" checked> Enable star tracker measurements</label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Gyro bias <span class="unit">deg/s</span></span><input id="ad-bias" type="number" min="0" max="2" step="0.001" value="0.015" required></label>
+            <label class="field"><span class="field-label">Gyro noise <span class="unit">deg/s</span></span><input id="ad-gyro-noise" type="number" min="0" max="2" step="0.001" value="0.003" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Tracker noise <span class="unit">deg</span></span><input id="ad-star-noise" type="number" min="0" max="5" step="0.005" value="0.035" required></label>
+            <label class="field"><span class="field-label">Tracker interval <span class="unit">s</span></span><input id="ad-track-period" type="number" min="1" max="3600" value="30" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Blackout starts <span class="unit">s</span></span><input id="ad-blackout-start" type="number" min="0" max="5400" value="400" required></label>
+            <label class="field"><span class="field-label">Blackout duration <span class="unit">s</span></span><input id="ad-blackout-time" type="number" min="0" max="5400" value="0" required></label>
+          </div>
+          <div class="field-heading secondary"><span>REACTION-WHEEL CONTROL</span><span class="field-index">LIMITED MOMENTUM</span></div>
+          <label class="check-row"><input id="ad-control" type="checkbox" checked> Enable estimated-state feedback control</label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Wheel motor torque <span class="unit">N·m</span></span><input id="ad-torque" type="number" min="0" max="10" step="0.01" value="0.2" required></label>
+            <label class="field"><span class="field-label">Momentum capacity <span class="unit">N·m·s</span></span><input id="ad-capacity" type="number" min="0" max="1000" step="0.1" value="8" required></label>
+          </div>
+          <label class="field"><span class="field-label">Reproducible random seed</span><input id="ad-seed" type="number" min="0" max="4294967295" value="27" required></label>
+          <div class="field-heading secondary"><span>BODY-FIXED PROPULSION</span><span class="field-index">+X · 850 N</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Burn start <span class="unit">s</span></span><input id="ad-start" type="number" min="0" max="5400" value="300" required></label>
+            <label class="field"><span class="field-label">Burn duration <span class="unit">s</span></span><input id="ad-burn" type="number" min="0" max="5400" value="120" required></label>
+          </div>
+          <button type="submit" class="primary-button" id="adcs-submit"><span class="run-icon">✦</span> RUN SENSOR + WHEEL LAB <span class="button-arrow">↗</span></button>
+          <div class="info-note">Simplified gyro bias and Gaussian noise; direct noisy quaternion star solutions. No momentum dumping, realistic occultation, flexible-body dynamics, or flight-qualified filtering. Lower wheel capacity or disable star tracker to explore failure modes.</div>
+        </form>
+
+        <form id="precision-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>PRECISION ATTITUDE NAVIGATION</span><span class="field-index">v1.2 · 17+6 STATES</span></div>
+          <p class="hint">Estimate attitude and gyro bias using a six-error-state MEKF, test tracker exclusion cones and unload reaction-wheel momentum using a geomagnetically constrained actuator.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude <span class="unit">km</span></span><input id="px-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Mission duration <span class="unit">min</span></span><input id="px-duration" type="number" min="1" max="90" value="18" required></label>
+          </div>
+          <label class="field"><span class="field-label">Attitude target</span><select id="px-target"><option value="prograde">Prograde / along velocity</option><option value="retrograde">Retrograde</option><option value="inertial_x">Fixed inertial +X</option></select></label>
+          <div class="field-heading secondary"><span>ESTIMATOR / TRACKER</span><span class="field-index">6×6 P</span></div>
+          <label class="check-row"><input id="px-tracker" type="checkbox" checked> Star tracker enabled</label>
+          <label class="check-row"><input id="px-visibility" type="checkbox" checked> Apply synthetic Sun and Earth exclusion cones</label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Tracker angular noise <span class="unit">deg</span></span><input id="px-star-noise" type="number" min="0" max="5" step="0.005" value="0.035" required></label>
+            <label class="field"><span class="field-label">Tracker interval <span class="unit">s</span></span><input id="px-track-period" type="number" min="1" max="3600" value="30" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Sun exclusion <span class="unit">deg</span></span><input id="px-sun" type="number" min="0" max="180" value="25" required></label>
+            <label class="field"><span class="field-label">Earth-limb margin <span class="unit">deg</span></span><input id="px-earth" type="number" min="0" max="60" value="8" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Initial gyro bias <span class="unit">deg/s</span></span><input id="px-bias" type="number" min="0" max="2" step="0.001" value="0.015" required></label>
+            <label class="field"><span class="field-label">Bias random walk <span class="unit">deg/s/√s</span></span><input id="px-rw" type="number" min="0" max="1" step="0.000005" value="0.000015" required></label>
+          </div>
+          <div class="field-heading secondary"><span>REACTION WHEEL UNLOADING</span><span class="field-index">m × B</span></div>
+          <label class="check-row"><input id="px-control" type="checkbox" checked> Closed-loop wheel attitude control</label>
+          <label class="check-row"><input id="px-unload" type="checkbox" checked> Enable magnetic momentum unloading</label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Initial wheel load <span class="unit">N·m·s</span></span><input id="px-initial-h" type="number" min="0" max="1000" step="0.1" value="2" required></label>
+            <label class="field"><span class="field-label">Wheel momentum capacity <span class="unit">N·m·s</span></span><input id="px-capacity" type="number" min="0" max="1000" step="0.1" value="8" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Max magnetic dipole <span class="unit">A·m²</span></span><input id="px-magnetic" type="number" min="0" max="2000" value="120" required></label>
+            <label class="field"><span class="field-label">Unloading gain <span class="unit">s⁻¹</span></span><input id="px-gain" type="number" min="0" max="5" step="0.001" value="0.01" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Engine start <span class="unit">s</span></span><input id="px-start" type="number" min="0" max="5400" value="300" required></label>
+            <label class="field"><span class="field-label">Engine duration <span class="unit">s</span></span><input id="px-burn" type="number" min="0" max="5400" value="120" required></label>
+          </div>
+          <label class="field"><span class="field-label">Random seed</span><input id="px-seed" type="number" min="0" max="4294967295" value="27" required></label>
+          <button type="submit" class="primary-button" id="precision-submit"><span class="run-icon">✦</span> RUN PRECISION ADCS <span class="button-arrow">↗</span></button>
+          <div class="info-note">The Sun direction and Earth dipole are simplified, fixed-inertial approximations. MEKF consistency statistics are synthetic and not flight-certified. Magnetic unloading is constrained perpendicular to B.</div>
+        </form>
+        <form id="integrated-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>TIME-ALIGNED FLIGHT NAVIGATION</span><span class="field-index">v1.4 · POWERED COVARIANCE</span></div>
+          <p class="hint">Replay late position measurements at capture time without using future packets. A separate attitude MEKF supplies estimated pointing for powered-flight orbit prediction.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Altitude <span class="unit">km</span></span><input id="in-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Mission duration <span class="unit">min</span></span><input id="in-duration" type="number" min="2" max="60" value="18" required></label>
+          </div>
+          <label class="field"><span class="field-label">Measurement source</span><select id="in-mode"><option value="cartesian">Synthetic inertial position fixes</option><option value="ground_range_rate">Hypothetical ground station range + rate</option></select></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Position noise <span class="unit">m</span></span><input id="in-noise" type="number" min="0.01" max="1000" value="30" step="1" required></label>
+            <label class="field"><span class="field-label">Packet latency <span class="unit">s</span></span><input id="in-latency" type="number" min="0" max="600" value="45" step="1" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Measurement interval <span class="unit">s</span></span><select id="in-period"><option value="30">30 seconds</option><option value="60" selected>60 seconds</option><option value="90">90 seconds</option><option value="120">120 seconds</option></select></label>
+            <label class="field"><span class="field-label">Initial position offset <span class="unit">m</span></span><input id="in-offset" type="number" min="0" max="10000" value="600" required></label>
+          </div>
+          <div class="field-heading secondary"><span>ATTITUDE / PROPULSION MISMATCH</span><span class="field-index">LOOSE COUPLING</span></div>
+          <label class="check-row"><input id="in-star" type="checkbox" checked> Enable intermittent star-tracker corrections</label>
+          <label class="check-row"><input id="in-j2" type="checkbox" checked> Include J₂ in orbit estimator</label>
+          <label class="check-row"><input id="in-cov" type="checkbox" checked> Augment powered-flight covariance using MEKF pointing uncertainty (approximate)</label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Burn start <span class="unit">s</span></span><input id="in-start" type="number" min="0" max="3600" value="300" required></label>
+            <label class="field"><span class="field-label">Burn duration <span class="unit">s</span></span><input id="in-burn" type="number" min="0" max="3600" value="0" required></label>
+          </div>
+          <label class="field"><span class="field-label">Random seed</span><input id="in-seed" type="number" min="0" max="2147483647" value="27" required></label>
+          <button type="submit" class="primary-button" id="integrated-submit"><span class="run-icon">✦</span> RUN INTEGRATED NAVIGATION <span class="button-arrow">↗</span></button>
+          <div class="info-note"><strong>Causal measurement replay:</strong> packets only enter the filter after receipt; their original capture timestamp determines the update. Approximate attitude-covariance propagation is optional. Cross-state error terms, temporal correlation, and thrust model bias are not represented.</div>
+        </form>
+
+
+        <form id="integrity-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>NAVIGATION INTEGRITY &amp; FAULT DETECTION</span><span class="field-index">v1.6 · NIS GATE</span></div>
+          <p class="hint">Run a synthetic position-sensor integrity experiment with independent trajectory integration, correlated sensor errors, uncertain engine thrust and persistent fault injection. Select Monte Carlo repetitions for reproducibility.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude <span class="unit">km</span></span><input id="ni-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Duration <span class="unit">min</span></span><input id="ni-duration" type="number" min="3" max="60" value="12" required></label>
+          </div>
+          <div class="field-heading secondary"><span>SENSOR ERROR &amp; FAULT</span><span class="field-index">AR(1) + STEP</span></div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Position noise <span class="unit">m RMS/axis</span></span><input id="ni-noise" type="number" min="0.01" max="1000" step="any" value="30" required></label>
+            <label class="field"><span class="field-label">Sensor correlation ρ</span><input id="ni-corr" type="number" min="0" max="0.98" step="0.05" value="0.65" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Fault onset <span class="unit">s</span></span><input id="ni-fault-time" type="number" min="0" max="3600" value="360" required></label>
+            <label class="field"><span class="field-label">Sensor bias <span class="unit">m</span></span><input id="ni-fault" type="number" min="0" max="5000" value="220" required></label>
+          </div>
+          <div class="field-heading secondary"><span>ENGINE &amp; DETECTOR</span><span class="field-index">DOP853 + EKF</span></div>
+          <label class="field"><span class="field-label">Engine calibration variability <span class="unit">1σ %</span></span><input id="ni-thrust" type="number" min="-30" max="30" step="0.5" value="3" required></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Monte Carlo runs</span><input id="ni-runs" type="number" min="1" max="32" value="12" required></label>
+            <label class="field"><span class="field-label">Random seed</span><input id="ni-seed" type="number" min="0" value="29" required></label>
+          </div>
+          <label class="check-row"><input id="ni-gate" type="checkbox" checked> Reject measurements when NIS exceeds the 99.73% χ² threshold</label>
+          <label class="check-row"><input id="ni-j2" type="checkbox" checked> Include Earth J₂ in truth and navigation model</label>
+          <button type="submit" class="primary-button" id="integrity-submit"><span class="run-icon">◈</span> RUN INTEGRITY SWEEP <span class="button-arrow">↗</span></button>
+          <div class="info-note"><strong>Educational prototype:</strong> independent DOP853 truth and RK4 six-state position/velocity EKF. Not the joint 12-state v1.5 filter. Synthetic Cartesian sensors; no real ground stations or guaranteed false-alarm probability under correlated errors. A fault alert is not a validated spacecraft failure declaration.</div>
+        </form>
+        <form id="joint-integrity-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>JOINT NAVIGATION INTEGRITY</span><span class="field-index">v1.7 · MULTISENSOR FDIR</span></div>
+          <p class="hint">Detect anomalies separately in synthetic inertial position and star-tracker fixes using the shared 12×12 error-state covariance. Compare injected faults with engine-model mismatch and time-correlated measurement noise.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude · km</span><input id="ji-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Duration · min</span><input id="ji-duration" type="number" min="8" max="24" value="12" step="1" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Fault channel</span><select id="ji-channel"><option value="position">Position fixes</option><option value="tracker">Star tracker</option><option value="both">Both channels</option><option value="none">No injected fault</option></select></label>
+            <label class="field"><span class="field-label">Fault onset · s</span><input id="ji-fault-start" type="number" value="360" min="0" max="1440" step="15" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Position bias · m</span><input id="ji-pos-fault" type="number" value="250" min="0" max="5000" step="10" required></label>
+            <label class="field"><span class="field-label">Tracker bias · deg</span><input id="ji-star-fault" type="number" value="8" min="0" max="90" step="0.1" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Sensor AR(1) correlation</span><input id="ji-corr" type="number" value="0.25" min="0" max="0.98" step="0.05" required></label>
+            <label class="field"><span class="field-label">Assumed thrust error · %</span><input id="ji-engine" type="number" value="0" min="-30" max="30" step="1" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Thrust process uncertainty · %</span><input id="ji-thrust-sigma" type="number" value="5" min="0" max="50" step="1" required></label>
+            <label class="field"><span class="field-label">Monte Carlo runs</span><input id="ji-runs" type="number" value="3" min="1" max="8" step="1" required></label>
+          </div>
+          <label class="check-row"><input id="ji-gate" type="checkbox" checked> Reject measurements that fail the NIS gate</label>
+          <label class="check-row"><input id="ji-tracker" type="checkbox" checked> Enable synthetic star-tracker observations</label>
+          <button type="submit" class="primary-button" id="joint-integrity-submit"><span class="run-icon">◈</span> RUN JOINT INTEGRITY <span class="button-arrow">↗</span></button>
+          <div class="info-note"><strong>Interpretation:</strong> a position-channel anomaly is NOT proof of a bad sensor. Thrust-model mismatch can produce similar residuals. Nominal χ² probabilities do not apply under AR(1) noise or model error. All data and geometry are synthetic.</div>
+        </form>
+        <form id="adaptive-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>ADAPTIVE NAVIGATION &amp; RECOVERY</span><span class="field-index">v1.8 · 13-STATE EKF</span></div>
+          <p class="hint">Estimate uncertain thrust calibration during an actual finite burn. Compare statistical sensor response strategies with delayed synthetic navigation packets. Alarms do not establish sensor failure.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude · km</span><input id="av-alt" type="number" value="400" min="200" max="5000" required></label>
+            <label class="field"><span class="field-label">Mission duration · min</span><select id="av-duration"><option value="8">8</option><option value="12" selected>12</option><option value="18">18</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Actual engine error · %</span><input id="av-true-thrust" type="number" value="5" min="-30" max="30" step="1" required></label>
+            <label class="field"><span class="field-label">Initial model error · %</span><input id="av-assumed-thrust" type="number" value="0" min="-30" max="30" step="1" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Fault channel</span><select id="av-fault-channel"><option value="none">None</option><option value="position">Position sensor</option><option value="tracker">Star tracker</option><option value="both">Both</option></select></label>
+            <label class="field"><span class="field-label">Response strategy</span><select id="av-policy"><option value="monitor">Monitor only</option><option value="gate" selected>Gate individual samples</option><option value="quarantine">Temporary quarantine</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Position fault magnitude · m</span><input id="av-fault-m" type="number" value="250" min="0" max="5000" step="10" required></label>
+            <label class="field"><span class="field-label">Sensor error correlation</span><input id="av-corr" type="number" value="0.25" min="0" max="0.98" step="0.05" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Monte Carlo seeds</span><select id="av-runs"><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+            <label class="field"><span class="field-label">Random seed</span><input id="av-seed" type="number" value="29" min="0" max="2147483647" step="1" required></label>
+          </div>
+          <label class="check-row"><input id="av-calibrate" type="checkbox" checked> Estimate engine scale jointly with position and attitude</label>
+          <label class="check-row"><input id="av-adapt" type="checkbox" checked> Adapt observation-noise multiplier using accepted innovations</label>
+          <button type="submit" class="primary-button" id="adaptive-submit"><span class="run-icon">◈</span> RUN ADAPTIVE NAVIGATION <span class="button-arrow">↗</span></button>
+          <div class="info-note"><strong>Scientific limit:</strong> the scale is poorly observable outside powered flight. Measurement rejection can also prevent calibration. This is a synthetic 13-error-state EKF and a heuristic fault-response demonstration, not flight-certified recovery logic.</div>
+        </form>
+
+
+        <form id="v22-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>INDEPENDENT PHYSICS CHECKS</span><span class="field-index">v2.4 · AUDIT GATE</span></div>
+          <p class="hint">Validate RK4 against Kepler; compare multiple published Vallado/TEME satellite cases with SGP4; and attempt an optional epoch-aware Astropy frame roundtrip. Missing optional software is <b>SKIPPED</b>—never counted as passed.</p>
+          <label class="field"><span class="field-label">RK4 samples per orbit</span><select id="vb-steps"><option value="120">120 · faster</option><option value="240" selected>240 · baseline</option><option value="480">480 · tighter convergence</option></select></label>
+          <label class="field"><span class="field-label">Benchmark duration</span><select id="vb-orbits"><option value="1">1 orbit</option><option value="2" selected>2 orbits</option><option value="3">3 orbits</option></select></label>
+          <button id="vb-run" class="primary-button" type="submit"><span class="run-icon">✓</span> RUN INDEPENDENT CHECKS <span class="button-arrow">↗</span></button>
+          <div class="divider-line"></div>
+          <div class="field-heading secondary"><span>OPTIONAL FULL VALLADO CORPUS</span></div>
+          <p class="hint">Download both original verification text files from the cited upstream project. Import them here for full software regression; no file is sent anywhere except your running local APOGEE server.</p>
+          <label class="field"><span class="field-label">SGP4-VER.TLE (official text)</span><input id="vb-tle-file" type="file" accept=".TLE,.tle,.txt" /></label>
+          <label class="field"><span class="field-label">tcppver.out (published vectors)</span><input id="vb-output-file" type="file" accept=".out,.txt" /></label>
+          <button id="vb-import" class="outline-button" type="button">↗ IMPORT & CHECK FULL CORPUS</button>
+          <p class="hint" id="vb-import-status">No external corpus loaded.</p>
+          <button id="vb-export" class="outline-button" type="button">↓ EXPORT AUDIT REPORT (JSON)</button>
+          <div class="info-note">Published vectors verify SGP4 software behavior in <b>TEME</b>; they do not establish orbital accuracy against real observations. This test suite deliberately does not mix TEME with APOGEE's ideal inertial axes.</div>
+        </form>
+        <form id="geodesy-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>WGS84 STATION · EPOCH</span><span class="field-index">v2.1</span></div>
+          <p class="hint">Instantaneous geometric one-way range/range-rate from a geodetic station and an Earth-fixed spacecraft state. GCRS requires optional Astropy + up-to-date IERS Earth orientation. Never substitutes approximate Earth rotation.</p>
+          <label class="field"><span class="field-label">UTC epoch</span><input id="geo-epoch" type="text" value="2026-10-25T12:00:00Z" required /></label>
+          <label class="field"><span class="field-label">Input Cartesian frame</span><select id="geo-frame"><option value="ITRS">ITRS (km, km/s) · offline</option><option value="GCRS">GCRS · strict Astropy/IERS</option></select></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Station latitude °</span><input id="geo-lat" type="number" min="-90" max="90" step="any" value="45" required /></label>
+            <label class="field"><span class="field-label">Station longitude °</span><input id="geo-lon" type="number" min="-180" max="180" step="any" value="-120" required /></label>
+          </div>
+          <label class="field"><span class="field-label">WGS84 ellipsoidal height (m)</span><input id="geo-height" type="number" min="-500" max="10000" step="any" value="100" required /></label>
+          <div class="field-heading secondary"><span>SPACECRAFT STATE · ITRS OR GCRS</span><span class="field-index">XYZ + VELOCITY</span></div>
+          <p class="hint">Position and velocity are Cartesian components in the selected frame; velocity must be that frame's coordinate derivative. The default is illustrative, not a catalog satellite.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">X (km)</span><input id="geo-x" type="number" step="any" value="-2400.252151" required /></label>
+            <label class="field"><span class="field-label">Y (km)</span><input id="geo-y" type="number" step="any" value="-4157.358677" required /></label>
+          </div>
+          <label class="field"><span class="field-label">Z (km)</span><input id="geo-z" type="number" step="any" value="4770.261832" required /></label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Vx (km/s)</span><input id="geo-vx" type="number" step="any" value="6.49519053" required /></label>
+            <label class="field"><span class="field-label">Vy (km/s)</span><input id="geo-vy" type="number" step="any" value="-3.75" required /></label>
+          </div>
+          <label class="field"><span class="field-label">Vz (km/s)</span><input id="geo-vz" type="number" step="any" value="0" required /></label>
+          <button type="submit" class="primary-button" id="geodesy-submit"><span class="run-icon">◎</span> CALCULATE GROUND GEOMETRY <span class="button-arrow">↗</span></button>
+          <div id="geodesy-result" class="hint" aria-live="polite">Select this mode and calculate to inspect geometric tracking results. This is not a measured radar observation.</div>
+        </form>
+        <form id="ground-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>GROUND TRACKING / CAUSAL NAV</span><span class="field-index">v2.0 · 7-STATE EKF</span></div>
+          <p class="hint">Synthetic rotating-Earth stations, elevation gating and delayed range/range-rate measurements. Only <b>received</b> packets enter the estimator, replayed at capture time.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Altitude · km</span><input id="gn-alt" type="number" value="400" min="200" max="2000" required></label>
+            <label class="field"><span class="field-label">Duration · minutes</span><select id="gn-duration"><option value="8">8</option><option value="12" selected>12</option><option value="18">18</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Station count</span><select id="gn-stations"><option value="6">6 · sparse</option><option value="12">12</option><option value="24" selected>24</option></select></label>
+            <label class="field"><span class="field-label">Minimum elevation</span><select id="gn-elev"><option value="0">0°</option><option value="5" selected>5°</option><option value="15">15°</option><option value="30">30°</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Range noise · m</span><input id="gn-range" type="number" value="20" min="0.1" max="500" step="any" required></label>
+            <label class="field"><span class="field-label">Range-rate noise · m/s</span><input id="gn-rate" type="number" value="0.04" min="0.001" max="3" step="any" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Measurement cadence · s</span><select id="gn-period"><option value="15">15</option><option value="30">30</option><option value="45" selected>45</option><option value="60">60</option></select></label>
+            <label class="field"><span class="field-label">Packet latency · s</span><select id="gn-delay"><option value="0">0</option><option value="20" selected>20</option><option value="60">60</option><option value="120">120</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Engine burn · s</span><select id="gn-burn"><option value="0">No burn</option><option value="60">60</option><option value="120" selected>120</option></select></label>
+            <label class="field"><span class="field-label">True thrust scale</span><input id="gn-scale" type="number" min="0.7" max="1.3" step="0.01" value="1.05" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Injected range bias · m</span><input id="gn-fault" type="number" min="0" max="3000" value="0" step="10" required></label>
+            <label class="field"><span class="field-label">Monte Carlo trials</span><select id="gn-runs"><option value="1">1</option><option value="3" selected>3</option><option value="8">8</option></select></label>
+          </div>
+          <label class="field"><span class="field-label">Random seed</span><input id="gn-seed" type="number" min="0" max="2147483647" value="29" step="1" required></label>
+          <button type="submit" class="primary-button" id="ground-submit"><span class="run-icon">◉</span> RUN GROUND NAVIGATION <span class="button-arrow">↗</span></button>
+          <div class="info-note"><b>Model boundaries:</b> artificial spherical station network, approximate UTC sidereal rotation, Newtonian orbit with fixed-direction finite burn, synthetic observations. Not ITRS/GCRS, real station tracking, GPS, or flight-qualified navigation.</div>
+        </form>
+        <form id="observability-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>ROBUST CALIBRATION LAB</span><span class="field-index">v1.9 · BATCH OBSERVABILITY</span></div>
+          <p class="hint">Measure when engine thrust is locally identifiable while estimating six unknown initial-state offsets. Compare three <b>offline batch fits</b> on identical synthetic trials.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Orbit altitude · km</span><input id="ob-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Mission duration · min</span><select id="ob-duration"><option value="8">8</option><option value="12" selected>12</option><option value="18">18</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Burn duration · s</span><select id="ob-burn"><option value="0">0 · no thrust</option><option value="60">60</option><option value="120" selected>120</option><option value="180">180</option></select></label>
+            <label class="field"><span class="field-label">Measurement interval · s</span><select id="ob-period"><option value="12">12</option><option value="24">24</option><option value="36" selected>36</option><option value="60">60</option><option value="120">120</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">True thrust scale · ×</span><input id="ob-scale" type="number" min="0.7" max="1.3" step="0.01" value="1.05" required></label>
+            <label class="field"><span class="field-label">Sensor σ · m / axis</span><input id="ob-noise" type="number" min="0.01" max="1000" step="any" value="30" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Fault size · m</span><input id="ob-fault" type="number" min="0" max="5000" step="10" value="250" required></label>
+            <label class="field"><span class="field-label">Fault duration · s</span><select id="ob-fault-duration"><option value="0">Persistent</option><option value="36">36</option><option value="60" selected>60</option><option value="120">120</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Robust estimator</span><select id="ob-method"><option value="least_squares">Least squares</option><option value="huber" selected>Huber</option><option value="gate">Innovation gating</option></select></label>
+            <label class="field"><span class="field-label">Sensor correlation</span><select id="ob-corr"><option value="0" selected>0 · independent</option><option value="0.4">0.4</option><option value="0.8">0.8</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Monte Carlo seeds</span><select id="ob-runs"><option value="16">16 · quick</option><option value="48" selected>48 · balanced</option><option value="128">128 · detailed</option></select></label>
+            <label class="field"><span class="field-label">Random seed</span><input id="ob-seed" type="number" min="0" max="2147483647" value="29" step="1" required></label>
+          </div>
+          <button type="submit" class="primary-button" id="observability-submit"><span class="run-icon">◎</span> TEST OBSERVABILITY <span class="button-arrow">↗</span></button>
+          <div class="info-note"><b>Model boundaries:</b> finite-burn Earth two-body translation with fixed inertial thrust direction; local 7-parameter sensitivity, noncausal batch estimation, synthetic Cartesian observations. Coverage is empirical in these seeds, not flight reliability.</div>
+        </form>
+        <form id="joint-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>12-STATE JOINT NAVIGATION</span><span class="field-index">v1.5 · 12×12 EKF</span></div>
+          <p class="hint">Joint covariance over position, velocity, body-frame attitude error and gyro bias. Delayed synthetic position and star-tracker packets replay at capture time; the engine points along the estimated body axis.</p>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Altitude <span class="unit">km</span></span><input id="jn-alt" type="number" min="200" max="5000" value="400" required></label>
+            <label class="field"><span class="field-label">Duration <span class="unit">minutes</span></span><select id="jn-duration"><option value="6">6</option><option value="12" selected>12</option><option value="18">18</option></select></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Position sensor noise <span class="unit">m</span></span><input id="jn-noise" type="number" min="0.01" max="1000" value="30" step="1" required></label>
+            <label class="field"><span class="field-label">Position packet delay <span class="unit">s</span></span><input id="jn-delay" type="number" min="0" max="600" value="45" step="5" required></label>
+          </div>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Tracker measurement noise <span class="unit">°</span></span><input id="jn-tracker-noise" type="number" min="0.001" max="5" value="0.04" step="0.01" required></label>
+            <label class="field"><span class="field-label">Tracker packet delay <span class="unit">s</span></span><input id="jn-tracker-delay" type="number" min="0" max="600" value="5" step="5" required></label>
+          </div>
+          <label class="check-row"><input id="jn-star" type="checkbox" checked> Enable intermittent star-tracker measurements</label>
+          <label class="check-row"><input id="jn-j2" type="checkbox" checked> Include J₂ in truth and estimator</label>
+          <div class="two-fields">
+            <label class="field"><span class="field-label">Finite burn start <span class="unit">s</span></span><input id="jn-start" type="number" min="0" max="3600" value="300" required></label>
+            <label class="field"><span class="field-label">Burn duration <span class="unit">s</span></span><input id="jn-burn" type="number" min="0" max="3600" value="120" required></label>
+          </div>
+          <label class="field"><span class="field-label">Random seed</span><input id="jn-seed" type="number" min="0" max="2147483647" value="27" required></label>
+          <button type="submit" class="primary-button" id="joint-submit"><span class="run-icon">◈</span> RUN JOINT NAVIGATION <span class="button-arrow">↗</span></button>
+          <div class="info-note"><strong>Research validation:</strong> joint cross-covariance can be generated during a burn; position error and estimated σ are shown together. Synthetic measurements and a perfectly known nominal engine do not establish flight performance. Frames remain APOGEE ideal inertial, not GCRS/ITRS.</div>
+        </form>
+        <form id="epoch-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>ABSOLUTE-TIME REFERENCE GEOMETRY</span><span class="field-index">v1.4 · GCRS / ITRS</span></div>
+          <p class="hint">Convert a timestamped six-state using Astropy/IERS, compute a geocentric Sun direction, and optionally evaluate IGRF-14. The input must already be in GCRS or ITRS; idealized APOGEE ECI states cannot simply be relabeled.</p>
+          <label class="field"><span class="field-label">UTC epoch with timezone</span><input id="ep-time" type="text" value="2026-10-24T12:00:00Z" required></label>
+          <label class="field"><span class="field-label">Input reference frame</span><select id="ep-frame"><option value="GCRS">Geocentric Celestial (GCRS)</option><option value="ITRS">International Terrestrial (ITRS)</option></select></label>
+          <label class="field"><span class="field-label">Position XYZ (km) · comma-separated</span><input id="ep-r" type="text" value="6778.137, 0, 0" required></label>
+          <label class="field"><span class="field-label">Velocity XYZ (km/s) · comma-separated</span><input id="ep-v" type="text" value="0, 7.6686, 0" required></label>
+          <label class="check-row"><input id="ep-magnetic" type="checkbox"> Include IGRF-14 geomagnetic field (ppigrf)</label>
+          <button type="submit" class="primary-button" id="epoch-submit"><span class="run-icon">◎</span> CALCULATE EPOCH REFERENCES <span class="button-arrow">↗</span></button>
+          <div id="epoch-output" class="frame-output" aria-live="polite">Requires Python packages astropy and optionally ppigrf. Reference conversion uses local IERS data with auto-download disabled; stale tables may limit precision.</div>
+          <div class="info-note">Reference-only laboratory: does not modify or re-label APOGEE ideal-inertial trajectory coordinates. Use GCRS/ITRS timestamped states from a matching source.</div>
+        </form>
+        <form id="validate-form" class="controls hidden" autocomplete="off">
+          <div class="field-heading"><span>FRAME-ALIGNED REFERENCE CHECK</span><span class="field-index">v0.6 · ICRF/TDB</span></div>
+          <p class="hint">Compare a point-mass propagation to user-supplied, Earth-centered ICRF Horizons vectors. The model starts at the <b>exact first imported six-state</b> and evaluates at the reference TDB epochs. Reference provenance is unverified.</p>
+          <label class="field"><span class="field-label">Raw Horizons VECTORS CSV-format text</span><textarea id="v-text" rows="10" placeholder="Paste JD TDB and six Cartesian states between $$SOE and $$EOE" required></textarea></label>
+          <label class="field"><span class="field-label">Or open a local text file</span><input id="v-file" type="file" accept=".txt,text/plain"></label>
+          <label class="check-row confirm-row"><input id="v-confirm" type="checkbox" required> I verified Earth center 500@399, ICRF / FRAME, geometric VECTORS, TDB and km/s; the source may still be unauthenticated.</label>
+          <button type="submit" class="primary-button" id="validate-submit"><span class="run-icon">◎</span> COMPARE MATCHED STATES <span class="button-arrow">↗</span></button>
+          <div class="info-note">Bounded to 250 states over 36 hours, Earth satellite altitudes below 60,000 km. Does not mix SGP4 TEME with ICRF, or interpret residuals as a validated navigation error.</div>
+        </form>
+
+        <div class="sidebar-footer"><div class="footer-line"><span class="status-dot"></span> FINITE BURNS · NAVIGATION · ATTITUDE DYNAMICS</div><div>Earth GM · two-body / J₂ model</div><div>Distance km · time s · mass kg</div></div>
+      </aside>
+
+      <main class="content-panel">
+        <section class="geodesy-dashboard hidden" id="v22-dashboard" aria-live="polite">
+          <div class="geo-eyebrow">APOGEE / VALIDATION LAB · 2.4</div>
+          <h1>Scientific verification gate</h1>
+          <p class="geo-description">Five auditable checks: two-body accuracy, fourth-order numerical convergence, full-corpus coverage, SGP4 output comparison, and frame roundtrip. A mathematical Kepler solution tests the numerical integrator. Four published Vallado cases test SGP4 in TEME when its dependency is installed. This is <strong>software verification</strong>, not verified flight data.</p>
+          <div class="geo-rule"></div>
+          <div class="geo-metrics">
+            <div class="geo-tile"><span>ANALYTICAL ORBIT CHECK</span><strong id="vb-analytic-status">PENDING</strong><small id="vb-analytic-error">Waiting for run</small></div>
+            <div class="geo-tile"><span>PUBLISHED SGP4 VECTORS</span><strong id="vb-sgp-status">PENDING</strong><small id="vb-sgp-error">No comparison run yet</small></div>
+            <div class="geo-tile"><span>MAX POSITION DEVIATION</span><strong id="vb-position">—</strong><small>RK4 vs analytical Kepler · meters</small></div>
+            <div class="geo-tile"><span>ASTROPY FRAME ROUNDTRIP</span><strong id="vb-frames">PENDING</strong><small id="vb-frame-error">GCRS ↔ ITRS · optional</small></div>
+            <div class="geo-tile"><span>BENCHMARK DISPOSITION</span><strong id="vb-overall">—</strong><small id="vb-tallies">No checks executed</small></div><div class="geo-tile"><span>STRICT RELEASE GATE</span><strong id="vb-gate">—</strong><small>SKIP means NOT CERTIFIED</small></div>
+          </div>
+          <div class="geo-detail">
+            <div><span>ANALYTIC FRAME</span><strong>Idealized inertial XYZ · elapsed seconds</strong></div>
+            <div><span>SGP4 REFERENCE FRAME</span><strong>TEME · minutes since TLE epoch</strong></div>
+            <div><span>REFERENCE BUNDLE SHA-256</span><strong id="vb-sha">—</strong></div>
+            <div><span>BENCHMARK DURATION / SAMPLES</span><strong id="vb-metadata">—</strong></div><div><span>RK4 CONVERGENCE</span><strong id="vb-convergence">—</strong></div><div><span>FULL CORPUS COVERAGE</span><strong id="vb-coverage">—</strong></div>
+          </div>
+          <div class="geo-warning" id="vb-notice">Select Benchmarks v2.4. All five checks must PASS for the strict software release gate to PASS.</div>
+          <p class="geo-footnote" id="vb-details">This dashboard does not display unrelated simulated orbital telemetry or treat SGP4 verification data as tracked spacecraft observations.</p>
+        </section>
+        <section class="geodesy-dashboard hidden" id="geodesy-dashboard" aria-live="polite">
+          <div class="geo-eyebrow">25 / REAL REFERENCE GEOMETRY · v2.1</div>
+          <h1>WGS84 Ground Tracking</h1>
+          <p class="geo-description">An epoch-tagged, geometric line-of-sight calculation in the terrestrial reference frame. These readouts come from the physics API, not the previous orbit visualization.</p>
+          <div class="geo-rule"></div>
+          <div class="geo-title-small">ONE-WAY INSTANTANEOUS GEOMETRY</div>
+          <div class="geo-metrics">
+            <div class="geo-tile"><span>SLANT RANGE</span><strong id="gd-range">—</strong><small>meters</small></div>
+            <div class="geo-tile"><span>RANGE RATE</span><strong id="gd-rate">—</strong><small>meters per second</small></div>
+            <div class="geo-tile"><span>ELEVATION</span><strong id="gd-elev">—</strong><small>degrees above horizon</small></div>
+            <div class="geo-tile"><span>AZIMUTH</span><strong id="gd-az">—</strong><small>degrees clockwise from north</small></div>
+          </div>
+          <div class="geo-detail">
+            <div><span>EPOCH</span><strong id="gd-epoch">—</strong></div>
+            <div><span>REFERENCE CONVERSION</span><strong id="gd-frames">—</strong></div>
+            <div><span>EARTH ORIENTATION</span><strong id="gd-eop">—</strong></div>
+          </div>
+          <div class="geo-warning" id="gd-status">Compute a geometric observation to populate this panel. Actual radar tracking requires light-time and atmospheric corrections not included here.</div>
+          <p class="geo-footnote">For source-attributed comparison, use the strict <code>/api/navigation/epoch-reference-comparison</code> endpoint and its bundled example. External observations are accepted as <em>unverified input</em>, not as authenticated truth.</p>
+        </section>
+
+        <section class="viewport-card">
+          <div class="view-topline"><div><span class="overline">02 / MISSION VISUALIZATION</span><h1 id="view-title">Earth orbit propagation</h1></div><div class="view-badges"><span class="tiny-badge">ECI FRAME</span><span class="tiny-badge accent">NUMERIC ENGINE</span></div></div>
+          <div class="view-wrap" id="view-wrap"><canvas id="scene" aria-label="Interactive 3D orbital trajectory viewer"></canvas>
+            <div class="view-top-overlay"><span class="coordinate-badge">XYZ · INERTIAL</span><span id="view-note">DRAG TO ROTATE · SCROLL TO ZOOM</span></div>
+            <div class="scene-label globe-label">EARTH <span>⊕</span></div>
+            <div class="orientation-axis"><span class="axis-dot"></span> INERTIAL REFERENCE</div>
+            <div class="scene-controls"><button title="Reset 3D camera" id="reset-camera" aria-label="Reset camera">↺</button><button title="Zoom in" id="zoom-in" aria-label="Zoom in">+</button><button title="Zoom out" id="zoom-out" aria-label="Zoom out">−</button></div>
+            <div class="scene-legend"><span><i class="legend-line orbit-line"></i> PERTURBED</span><span><i class="legend-line faded-line"></i> BASELINE / REFERENCE</span><span><i class="legend-dot"></i> SPACECRAFT</span></div>
+            <div id="scene-loading" class="scene-loading">Initializing numerical propagation…</div>
+          </div>
+          <div class="timeline"><button id="play-pause" class="play-button" aria-label="Pause simulation">Ⅱ</button><div class="time-readout"><span class="readout-label">MISSION ELAPSED TIME</span><span id="current-time">T+ 00:00:00</span></div><input id="scrubber" type="range" min="0" max="1000" value="0" aria-label="Mission timeline" /><span id="duration-time" class="duration-label">T+ --:--:--</span><select id="playback-speed" aria-label="Playback speed"><option value="1">1×</option><option value="4" selected>4×</option><option value="12">12×</option><option value="30">30×</option><option value="120">120×</option><option value="360">360×</option></select></div>
+        </section>
+
+        <section class="metrics-grid">
+          <div class="metric-tile"><span>ALTITUDE</span><strong id="stat-altitude">—</strong><small>km above Earth</small></div>
+          <div class="metric-tile"><span>ORBITAL SPEED</span><strong id="stat-speed">—</strong><small>km / second</small></div>
+          <div class="metric-tile"><span>ORBITAL PERIOD</span><strong id="stat-period">—</strong><small>minutes</small></div>
+          <div class="metric-tile"><span>ECCENTRICITY</span><strong id="stat-eccentricity">—</strong><small>initial osculating orbit</small></div>
+          <div class="metric-tile hidden" id="fuel-tile"><span>FUEL REMAINING</span><strong id="stat-fuel">—</strong><small>kg · live simulated</small></div>
+        </section>
+
+        <div class="bottom-grid">
+          <section class="data-panel graph-panel"><div class="panel-heading"><div><div class="overline">03 / NUMERICAL INTEGRITY</div><h3 id="integrity-title">Conservation monitor</h3></div><span class="pass-label" id="conservation-badge">● CHECKING</span></div><canvas id="drift-chart" aria-label="Relative energy and angular momentum drift chart"></canvas><div class="chart-key"><span><i class="key-swatch cyan"></i> Relative energy error</span><span><i class="key-swatch violet"></i> Angular momentum error</span></div><p class="tiny-text" id="integrity-desc">Errors are measured against the initial invariants. This is an actual numerical solver check, not a visual animation.</p></section>
+          <section class="data-panel breakdown-panel"><div class="panel-heading"><div><div class="overline">04 / MISSION ANALYSIS</div><h3 id="analysis-heading">Orbit characteristics</h3></div><span class="analysis-symbol">↗</span></div><div id="analysis-rows" class="analysis-rows"><span class="hint">Run a scenario to calculate orbital parameters.</span></div><div class="action-row"><button id="export-json" class="outline-button">↓ JSON REPORT</button><button id="export-csv" class="outline-button">↓ CSV</button></div></section>
+        </div>
+      </main>
+
+      <aside class="right-panel panel">
+        <div class="section-head"><div><div class="overline">05 / LIVE TELEMETRY</div><h2>Flight data / geometry</h2></div><span class="live-label"><i></i> LIVE</span></div>
+        <div class="telemetry-block"><div class="telemetry-title">POSITION VECTOR <span>r [km]</span></div><div class="vector-row"><span>X</span><strong id="pos-x">—</strong></div><div class="vector-row"><span>Y</span><strong id="pos-y">—</strong></div><div class="vector-row"><span>Z</span><strong id="pos-z">—</strong></div></div>
+        <div class="telemetry-block"><div class="telemetry-title">VELOCITY VECTOR <span>v [km/s]</span></div><div class="vector-row"><span>V<sub>x</sub></span><strong id="vel-x">—</strong></div><div class="vector-row"><span>V<sub>y</sub></span><strong id="vel-y">—</strong></div><div class="vector-row"><span>V<sub>z</sub></span><strong id="vel-z">—</strong></div></div>
+        <div class="telemetry-block diagnostics hidden" id="propulsion-telemetry"><div class="telemetry-title">PROPULSION <span id="engine-telemetry-status">COAST</span></div>
+          <div class="micro-stat"><span>Wet mass</span><strong id="live-wet-mass">—</strong></div>
+          <div class="micro-stat"><span>Fuel remaining</span><strong id="live-prop">—</strong></div>
+          <div class="fuel-track"><div id="fuel-progress"></div></div>
+          <div class="micro-stat"><span>Engine Δv (ideal integral)</span><strong id="live-delivered-dv">—</strong></div>
+        </div>
+        <div class="telemetry-block diagnostics"><div class="telemetry-title">INTEGRATION DIAGNOSTICS <span>RUN</span></div><div class="micro-stat"><span>Time step</span><strong id="step-value">—</strong></div><div class="micro-stat"><span>Sample count</span><strong id="count-value">—</strong></div><div class="micro-stat"><span>Max |ΔE/E₀|</span><strong id="energy-value">—</strong></div><div class="micro-stat"><span>Max |Δh/h₀|</span><strong id="momentum-value">—</strong></div></div>
+        <div class="notice-box"><span class="notice-icon">ⓘ</span><div><strong>Physics model · v2.4</strong><p id="model-notice">Select a simulation model. J₂ and drag are available in the new perturbation lab. Satellite tracking uses SGP4 and TEME.</p></div></div>
+        <div class="warning-box hidden" id="warning-box"><b>MODEL NOTICE</b><span id="warning-text"></span></div>
+      </aside>
+    </div>
+    <footer class="footer"><span>APOGEE LABORATORY / NUMERICALLY GROUNDED ORBITAL DYNAMICS</span><span>BUILT ON PHYSICS. NOT KEYFRAMES.</span></footer>
+  </div>
+</body>
+</html>

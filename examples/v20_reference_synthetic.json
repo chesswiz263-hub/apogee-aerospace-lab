@@ -1,0 +1,64 @@
+{
+  "configuration": {
+    "altitude_km": 400.0,
+    "inclination_deg": 51.6,
+    "duration_minutes": 12.0,
+    "samples": 49,
+    "burn_start_s": 180.0,
+    "burn_duration_s": 120.0,
+    "true_thrust_scale": 1.05,
+    "measurement_interval_s": 45.0,
+    "telemetry_delay_s": 20.0,
+    "range_sigma_m": 20.0,
+    "range_rate_sigma_m_s": 0.04,
+    "min_elevation_deg": 5.0,
+    "station_count": 24,
+    "initial_position_error_m": 600.0,
+    "initial_velocity_error_m_s": 0.4,
+    "process_acceleration_sigma_m_s2": 0.00015,
+    "fault_bias_m": 0.0,
+    "fault_start_s": 360.0,
+    "monte_carlo_runs": 3,
+    "seed": 29,
+    "epoch_utc": "2026-10-25T12:00:00Z",
+    "reference_frame": "APOGEE_SIM_ECI_EARTH_ROTATING"
+  },
+  "records": [
+    {
+      "capture_time_s": 135.0,
+      "station_id": "S18",
+      "range_m": 1562206.985502453,
+      "range_rate_m_s": -5267.6876596186075
+    },
+    {
+      "capture_time_s": 180.0,
+      "station_id": "S18",
+      "range_m": 1342102.8721575642,
+      "range_rate_m_s": -4450.871982759503
+    },
+    {
+      "capture_time_s": 225.0,
+      "station_id": "S18",
+      "range_m": 1168330.4806844636,
+      "range_rate_m_s": -3175.6407018172335
+    },
+    {
+      "capture_time_s": 270.0,
+      "station_id": "S18",
+      "range_m": 1065504.913150896,
+      "range_rate_m_s": -1299.3486821149604
+    },
+    {
+      "capture_time_s": 315.0,
+      "station_id": "S18",
+      "range_m": 1057079.6845225277,
+      "range_rate_m_s": 937.0639191084306
+    },
+    {
+      "capture_time_s": 360.0,
+      "station_id": "S18",
+      "range_m": 1146055.505635164,
+      "range_rate_m_s": 2936.3193543667644
+    }
+  ]
+}

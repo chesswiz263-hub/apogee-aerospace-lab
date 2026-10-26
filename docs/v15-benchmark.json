@@ -1,0 +1,71 @@
+{
+  "version": "1.5.0",
+  "reference_frame": "APOGEE_IDEAL_ECI",
+  "covariance_dimension": 12,
+  "nominal_cases": {
+    "powered": {
+      "final_position_error_m": 51.309178695493344,
+      "final_position_1sigma_rss_m": 39.70113324620803,
+      "final_attitude_estimation_error_deg": 0.5953734693777436,
+      "max_position_attitude_abs_correlation": 0.15942756035010475,
+      "final_error_over_position_sigma_rss": 1.292385745698935,
+      "received_at_finish": 22,
+      "packets_generated": 24
+    },
+    "coast": {
+      "final_position_error_m": 58.52514820733936,
+      "final_position_1sigma_rss_m": 33.54504610281676,
+      "final_attitude_estimation_error_deg": 0.7492477184579747,
+      "max_position_attitude_abs_correlation": 0.0,
+      "final_error_over_position_sigma_rss": 1.744673357370197,
+      "received_at_finish": 22,
+      "packets_generated": 24
+    },
+    "tracker_disabled": {
+      "final_position_error_m": 103.15235417439396,
+      "final_position_1sigma_rss_m": 45.00681549676258,
+      "final_attitude_estimation_error_deg": 2.548804177391318,
+      "max_position_attitude_abs_correlation": 0.9956138123601732,
+      "final_error_over_position_sigma_rss": 2.2919274122341293,
+      "received_at_finish": 11,
+      "packets_generated": 12
+    }
+  },
+  "seed_experiment": {
+    "runs": [
+      {
+        "seed": 3,
+        "final_position_error_m": 15.296704183145579,
+        "final_uncertainty_m": 39.64903991527604,
+        "max_position_attitude_abs_correlation": 0.16270313560479727
+      },
+      {
+        "seed": 5,
+        "final_position_error_m": 34.43858158070356,
+        "final_uncertainty_m": 41.23048102238669,
+        "max_position_attitude_abs_correlation": 0.39936571836068085
+      },
+      {
+        "seed": 7,
+        "final_position_error_m": 65.86341142803023,
+        "final_uncertainty_m": 39.65524502605647,
+        "max_position_attitude_abs_correlation": 0.15869477563570958
+      },
+      {
+        "seed": 11,
+        "final_position_error_m": 74.20523222227823,
+        "final_uncertainty_m": 39.69188916218151,
+        "max_position_attitude_abs_correlation": 0.15735292635415615
+      },
+      {
+        "seed": 13,
+        "final_position_error_m": 56.34280357417879,
+        "final_uncertainty_m": 39.661045036769195,
+        "max_position_attitude_abs_correlation": 0.16253008597529967
+      }
+    ],
+    "median_final_position_error_m": 56.34280357417879,
+    "worst_final_position_error_m": 74.20523222227823
+  },
+  "caveat": "Synthetic truth, sensors and noise, uncalibrated process covariance; no validated real ephemeris"
+}

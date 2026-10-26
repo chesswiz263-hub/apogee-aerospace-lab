@@ -1,0 +1,456 @@
+{
+  "version": "1.9.0",
+  "description": "Synthetic two-body local batch estimation; 48 paired seeds per case; NOT flight validation",
+  "cases": {
+    "nominal_clean": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 61,
+        "observation_interval_s": 30.0,
+        "observation_start_s": 0.0,
+        "observation_sigma_m": 30.0,
+        "noise_correlation": 0.0,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "true_thrust_scale": 1.05,
+        "fault_bias_m": 0,
+        "fault_start_s": 360.0,
+        "fault_duration_s": 60.0,
+        "estimator": "huber",
+        "monte_carlo_runs": 48,
+        "seed": 29,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "observability": {
+        "observable": true,
+        "effective_scale_information": 993971.1742643821,
+        "scale_1sigma_from_data": 0.0010030281117359705,
+        "scale_signal_to_prior": 199.39620600847775,
+        "independent_measurements": 21,
+        "rank": 7
+      },
+      "robust_methods": {
+        "least_squares": {
+          "runs": 48,
+          "median_final_position_error_m": 20.487957771915614,
+          "p90_final_position_error_m": 33.95997898407519,
+          "worst_final_position_error_m": 42.83383450267032,
+          "thrust_scale_rmse_pct_points": 0.07573216670487781,
+          "position_95pct_coverage": 0.9166666666666666,
+          "position_coverage_wilson_95pct": [
+            0.804464348389337,
+            0.9671167756500445
+          ],
+          "thrust_95pct_coverage": 0.9791666666666666,
+          "mean_downweighted_fixes": 0.0
+        },
+        "huber": {
+          "runs": 48,
+          "median_final_position_error_m": 20.42901059600581,
+          "p90_final_position_error_m": 33.960637056359765,
+          "worst_final_position_error_m": 42.849291325353235,
+          "thrust_scale_rmse_pct_points": 0.07670341032380769,
+          "position_95pct_coverage": 0.9166666666666666,
+          "position_coverage_wilson_95pct": [
+            0.804464348389337,
+            0.9671167756500445
+          ],
+          "thrust_95pct_coverage": 0.9791666666666666,
+          "mean_downweighted_fixes": 0.7083333333333334
+        },
+        "gate": {
+          "runs": 48,
+          "median_final_position_error_m": 20.487957771915614,
+          "p90_final_position_error_m": 33.95997898407519,
+          "worst_final_position_error_m": 42.83383450267032,
+          "thrust_scale_rmse_pct_points": 0.07573216670487781,
+          "position_95pct_coverage": 0.9166666666666666,
+          "position_coverage_wilson_95pct": [
+            0.804464348389337,
+            0.9671167756500445
+          ],
+          "thrust_95pct_coverage": 0.9791666666666666,
+          "mean_downweighted_fixes": 0.0
+        }
+      },
+      "first_run_estimated_thrust_scale": 1.0504447521053764
+    },
+    "short_outlier": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 61,
+        "observation_interval_s": 30.0,
+        "observation_start_s": 0.0,
+        "observation_sigma_m": 30.0,
+        "noise_correlation": 0.0,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "true_thrust_scale": 1.05,
+        "fault_bias_m": 250.0,
+        "fault_start_s": 360.0,
+        "fault_duration_s": 60.0,
+        "estimator": "huber",
+        "monte_carlo_runs": 48,
+        "seed": 29,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "observability": {
+        "observable": true,
+        "effective_scale_information": 993971.1742643821,
+        "scale_1sigma_from_data": 0.0010030281117359705,
+        "scale_signal_to_prior": 199.39620600847775,
+        "independent_measurements": 21,
+        "rank": 7
+      },
+      "robust_methods": {
+        "least_squares": {
+          "runs": 48,
+          "median_final_position_error_m": 33.35483768332973,
+          "p90_final_position_error_m": 49.17418276202075,
+          "worst_final_position_error_m": 63.18002422019421,
+          "thrust_scale_rmse_pct_points": 0.07575959169346962,
+          "position_95pct_coverage": 0.6666666666666666,
+          "position_coverage_wilson_95pct": [
+            0.5253984633247204,
+            0.7832339862910321
+          ],
+          "thrust_95pct_coverage": 0.9791666666666666,
+          "mean_downweighted_fixes": 0.0
+        },
+        "huber": {
+          "runs": 48,
+          "median_final_position_error_m": 22.07493323599624,
+          "p90_final_position_error_m": 37.50204944932096,
+          "worst_final_position_error_m": 50.11830197454216,
+          "thrust_scale_rmse_pct_points": 0.07627980977223772,
+          "position_95pct_coverage": 0.8958333333333334,
+          "position_coverage_wilson_95pct": [
+            0.7783231187385907,
+            0.9546789490988217
+          ],
+          "thrust_95pct_coverage": 0.9791666666666666,
+          "mean_downweighted_fixes": 2.75
+        },
+        "gate": {
+          "runs": 48,
+          "median_final_position_error_m": 20.214582471693724,
+          "p90_final_position_error_m": 32.71258453122456,
+          "worst_final_position_error_m": 44.979109402377695,
+          "thrust_scale_rmse_pct_points": 0.0771462205491738,
+          "position_95pct_coverage": 0.9166666666666666,
+          "position_coverage_wilson_95pct": [
+            0.804464348389337,
+            0.9671167756500445
+          ],
+          "thrust_95pct_coverage": 0.9791666666666666,
+          "mean_downweighted_fixes": 2.0208333333333335
+        }
+      },
+      "first_run_estimated_thrust_scale": 1.0503380346679854
+    },
+    "persistent_bias": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 61,
+        "observation_interval_s": 30.0,
+        "observation_start_s": 0.0,
+        "observation_sigma_m": 30.0,
+        "noise_correlation": 0.0,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "true_thrust_scale": 1.05,
+        "fault_bias_m": 250.0,
+        "fault_start_s": 360.0,
+        "fault_duration_s": 0,
+        "estimator": "huber",
+        "monte_carlo_runs": 48,
+        "seed": 29,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "observability": {
+        "observable": true,
+        "effective_scale_information": 993971.1742643821,
+        "scale_1sigma_from_data": 0.0010030281117359705,
+        "scale_signal_to_prior": 199.39620600847775,
+        "independent_measurements": 21,
+        "rank": 7
+      },
+      "robust_methods": {
+        "least_squares": {
+          "runs": 48,
+          "median_final_position_error_m": 318.5600886849238,
+          "p90_final_position_error_m": 334.9024219975934,
+          "worst_final_position_error_m": 352.18238535221406,
+          "thrust_scale_rmse_pct_points": 0.09242219426447146,
+          "position_95pct_coverage": 0.0,
+          "position_coverage_wilson_95pct": [
+            0.0,
+            0.0741026511527422
+          ],
+          "thrust_95pct_coverage": 0.9583333333333334,
+          "mean_downweighted_fixes": 0.0
+        },
+        "huber": {
+          "runs": 48,
+          "median_final_position_error_m": 315.3998842848151,
+          "p90_final_position_error_m": 331.1930899658756,
+          "worst_final_position_error_m": 356.95062012855686,
+          "thrust_scale_rmse_pct_points": 0.09406625143277078,
+          "position_95pct_coverage": 0.0,
+          "position_coverage_wilson_95pct": [
+            0.0,
+            0.0741026511527422
+          ],
+          "thrust_95pct_coverage": 0.9583333333333334,
+          "mean_downweighted_fixes": 6.541666666666667
+        },
+        "gate": {
+          "runs": 48,
+          "median_final_position_error_m": 307.1594335950612,
+          "p90_final_position_error_m": 342.50743321394697,
+          "worst_final_position_error_m": 372.87793621381627,
+          "thrust_scale_rmse_pct_points": 0.10971933183717561,
+          "position_95pct_coverage": 0.0,
+          "position_coverage_wilson_95pct": [
+            0.0,
+            0.0741026511527422
+          ],
+          "thrust_95pct_coverage": 0.9791666666666666,
+          "mean_downweighted_fixes": 2.7708333333333335
+        }
+      },
+      "first_run_estimated_thrust_scale": 1.0496487542024098
+    },
+    "correlated_outlier": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 61,
+        "observation_interval_s": 30.0,
+        "observation_start_s": 0.0,
+        "observation_sigma_m": 30.0,
+        "noise_correlation": 0.8,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "true_thrust_scale": 1.05,
+        "fault_bias_m": 250.0,
+        "fault_start_s": 360.0,
+        "fault_duration_s": 60.0,
+        "estimator": "huber",
+        "monte_carlo_runs": 48,
+        "seed": 29,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "observability": {
+        "observable": true,
+        "effective_scale_information": 993971.1742643821,
+        "scale_1sigma_from_data": 0.0010030281117359705,
+        "scale_signal_to_prior": 199.39620600847775,
+        "independent_measurements": 21,
+        "rank": 7
+      },
+      "robust_methods": {
+        "least_squares": {
+          "runs": 48,
+          "median_final_position_error_m": 41.3813271583939,
+          "p90_final_position_error_m": 62.98942298656571,
+          "worst_final_position_error_m": 90.20205579843622,
+          "thrust_scale_rmse_pct_points": 0.09907591040338488,
+          "position_95pct_coverage": 0.4583333333333333,
+          "position_coverage_wilson_95pct": [
+            0.3257502185455351,
+            0.5970916690505266
+          ],
+          "thrust_95pct_coverage": 0.9583333333333334,
+          "mean_downweighted_fixes": 0.0
+        },
+        "huber": {
+          "runs": 48,
+          "median_final_position_error_m": 34.04772459833747,
+          "p90_final_position_error_m": 48.72672217687467,
+          "worst_final_position_error_m": 81.09783529117395,
+          "thrust_scale_rmse_pct_points": 0.09838513038708792,
+          "position_95pct_coverage": 0.625,
+          "position_coverage_wilson_95pct": [
+            0.4836250612524957,
+            0.7478492759593187
+          ],
+          "thrust_95pct_coverage": 0.9375,
+          "mean_downweighted_fixes": 2.2916666666666665
+        },
+        "gate": {
+          "runs": 48,
+          "median_final_position_error_m": 33.48761323026981,
+          "p90_final_position_error_m": 48.083060899701756,
+          "worst_final_position_error_m": 93.53931616774301,
+          "thrust_scale_rmse_pct_points": 0.10202168459801088,
+          "position_95pct_coverage": 0.6666666666666666,
+          "position_coverage_wilson_95pct": [
+            0.5253984633247204,
+            0.7832339862910321
+          ],
+          "thrust_95pct_coverage": 0.9375,
+          "mean_downweighted_fixes": 2.0416666666666665
+        }
+      },
+      "first_run_estimated_thrust_scale": 1.047885109830573
+    },
+    "no_burn": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 61,
+        "observation_interval_s": 30.0,
+        "observation_start_s": 0.0,
+        "observation_sigma_m": 30.0,
+        "noise_correlation": 0.0,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 0,
+        "true_thrust_scale": 1.05,
+        "fault_bias_m": 250.0,
+        "fault_start_s": 360.0,
+        "fault_duration_s": 60.0,
+        "estimator": "huber",
+        "monte_carlo_runs": 48,
+        "seed": 29,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "observability": {
+        "observable": false,
+        "effective_scale_information": 0.0,
+        "scale_1sigma_from_data": null,
+        "scale_signal_to_prior": 0.0,
+        "independent_measurements": 21,
+        "rank": 6
+      },
+      "robust_methods": {
+        "least_squares": {
+          "runs": 48,
+          "median_final_position_error_m": 33.42623756481611,
+          "p90_final_position_error_m": 47.990263703169845,
+          "worst_final_position_error_m": 63.293754637924614,
+          "thrust_scale_rmse_pct_points": 5.000000000000004,
+          "position_95pct_coverage": 0.625,
+          "position_coverage_wilson_95pct": [
+            0.4836250612524957,
+            0.7478492759593187
+          ],
+          "thrust_95pct_coverage": 1.0,
+          "mean_downweighted_fixes": 0.0
+        },
+        "huber": {
+          "runs": 48,
+          "median_final_position_error_m": 20.167011413338955,
+          "p90_final_position_error_m": 35.281544574150956,
+          "worst_final_position_error_m": 51.05067586167561,
+          "thrust_scale_rmse_pct_points": 5.000000000000004,
+          "position_95pct_coverage": 0.8958333333333334,
+          "position_coverage_wilson_95pct": [
+            0.7783231187385907,
+            0.9546789490988217
+          ],
+          "thrust_95pct_coverage": 1.0,
+          "mean_downweighted_fixes": 2.8333333333333335
+        },
+        "gate": {
+          "runs": 48,
+          "median_final_position_error_m": 19.236651908249982,
+          "p90_final_position_error_m": 33.97777896709476,
+          "worst_final_position_error_m": 44.94887703588105,
+          "thrust_scale_rmse_pct_points": 5.000000000000004,
+          "position_95pct_coverage": 0.8958333333333334,
+          "position_coverage_wilson_95pct": [
+            0.7783231187385907,
+            0.9546789490988217
+          ],
+          "thrust_95pct_coverage": 1.0,
+          "mean_downweighted_fixes": 2.0208333333333335
+        }
+      },
+      "first_run_estimated_thrust_scale": 1.0
+    },
+    "late_observations_only": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 61,
+        "observation_interval_s": 30.0,
+        "observation_start_s": 480,
+        "observation_sigma_m": 30.0,
+        "noise_correlation": 0.0,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "true_thrust_scale": 1.05,
+        "fault_bias_m": 250.0,
+        "fault_start_s": 360.0,
+        "fault_duration_s": 60.0,
+        "estimator": "huber",
+        "monte_carlo_runs": 48,
+        "seed": 29,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "observability": {
+        "observable": false,
+        "effective_scale_information": 1.2547460630820749e-23,
+        "scale_1sigma_from_data": null,
+        "scale_signal_to_prior": 7.084478987426175e-13,
+        "independent_measurements": 7,
+        "rank": 6
+      },
+      "robust_methods": {
+        "least_squares": {
+          "runs": 48,
+          "median_final_position_error_m": 33.43232991887902,
+          "p90_final_position_error_m": 59.30523943104715,
+          "worst_final_position_error_m": 74.0204205356604,
+          "thrust_scale_rmse_pct_points": 0.0880918796810678,
+          "position_95pct_coverage": 0.9375,
+          "position_coverage_wilson_95pct": [
+            0.8316430233725778,
+            0.9785171568687728
+          ],
+          "thrust_95pct_coverage": 1.0,
+          "mean_downweighted_fixes": 0.0
+        },
+        "huber": {
+          "runs": 48,
+          "median_final_position_error_m": 33.43232991887902,
+          "p90_final_position_error_m": 59.30523943104715,
+          "worst_final_position_error_m": 74.0204205356604,
+          "thrust_scale_rmse_pct_points": 0.0880918796810678,
+          "position_95pct_coverage": 0.9375,
+          "position_coverage_wilson_95pct": [
+            0.8316430233725778,
+            0.9785171568687728
+          ],
+          "thrust_95pct_coverage": 1.0,
+          "mean_downweighted_fixes": 0.0
+        },
+        "gate": {
+          "runs": 48,
+          "median_final_position_error_m": 33.43232991887902,
+          "p90_final_position_error_m": 59.30523943104715,
+          "worst_final_position_error_m": 74.0204205356604,
+          "thrust_scale_rmse_pct_points": 0.0880918796810678,
+          "position_95pct_coverage": 0.9375,
+          "position_coverage_wilson_95pct": [
+            0.8316430233725778,
+            0.9785171568687728
+          ],
+          "thrust_95pct_coverage": 1.0,
+          "mean_downweighted_fixes": 0.0
+        }
+      },
+      "first_run_estimated_thrust_scale": 1.050817665071688
+    }
+  }
+}

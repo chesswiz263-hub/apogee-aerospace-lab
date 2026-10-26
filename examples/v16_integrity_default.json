@@ -1,0 +1,18 @@
+{
+  "altitude_km": 400,
+  "inclination_deg": 51.6,
+  "duration_minutes": 12,
+  "samples": 48,
+  "measurement_sigma_m": 30,
+  "correlation": 0.65,
+  "thrust_error_pct": 3,
+  "fault_start_s": 360,
+  "fault_magnitude_m": 220,
+  "reject_faults": true,
+  "burn_start_s": 180,
+  "burn_duration_s": 120,
+  "j2_enabled": true,
+  "seed": 29,
+  "monte_carlo_runs": 12,
+  "reference_frame": "APOGEE_IDEAL_ECI"
+}

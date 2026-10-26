@@ -1,0 +1,103 @@
+{
+  "version": "1.8.0",
+  "study": "Synthetic 13-error-state EKF; deterministic noise seeds, fixed ADCS truth dynamics.",
+  "warning": "Not real spacecraft data or calibrated fault detection probabilities.",
+  "scenarios": {
+    "nominal_with_estimation": {
+      "median_position_error_m": 43.33668029749292,
+      "worst_position_error_m": 57.66616576193298,
+      "first_run_estimated_thrust_scale": 1.0490172808741949,
+      "first_run_true_thrust_scale": 1.05,
+      "first_run_alarms": {
+        "position": 0,
+        "tracker": 2
+      },
+      "first_run_rejected_packets": 2,
+      "first_run_quarantined_packets": 0,
+      "seeds": [
+        8129,
+        8130
+      ]
+    },
+    "nominal_without_estimation": {
+      "median_position_error_m": 2971.5827656257143,
+      "worst_position_error_m": 3091.54664514194,
+      "first_run_estimated_thrust_scale": 1.0,
+      "first_run_true_thrust_scale": 1.05,
+      "first_run_alarms": {
+        "position": 7,
+        "tracker": 2
+      },
+      "first_run_rejected_packets": 9,
+      "first_run_quarantined_packets": 0,
+      "seeds": [
+        8129,
+        8130
+      ]
+    },
+    "position_fault_gating": {
+      "median_position_error_m": 426.6787520476905,
+      "worst_position_error_m": 573.6870451141602,
+      "first_run_estimated_thrust_scale": 1.0591312966404913,
+      "first_run_true_thrust_scale": 1.05,
+      "first_run_alarms": {
+        "position": 6,
+        "tracker": 2
+      },
+      "first_run_rejected_packets": 8,
+      "first_run_quarantined_packets": 0,
+      "seeds": [
+        8129,
+        8130
+      ]
+    },
+    "position_fault_quarantine": {
+      "median_position_error_m": 426.6787520476905,
+      "worst_position_error_m": 573.6870451141602,
+      "first_run_estimated_thrust_scale": 1.0591312966404913,
+      "first_run_true_thrust_scale": 1.05,
+      "first_run_alarms": {
+        "position": 4,
+        "tracker": 2
+      },
+      "first_run_rejected_packets": 8,
+      "first_run_quarantined_packets": 2,
+      "seeds": [
+        8129,
+        8130
+      ]
+    },
+    "tracker_fault_gating": {
+      "median_position_error_m": 43.24190642180199,
+      "worst_position_error_m": 58.639015661328166,
+      "first_run_estimated_thrust_scale": 1.0489794885435204,
+      "first_run_true_thrust_scale": 1.05,
+      "first_run_alarms": {
+        "position": 0,
+        "tracker": 7
+      },
+      "first_run_rejected_packets": 7,
+      "first_run_quarantined_packets": 0,
+      "seeds": [
+        8129,
+        8130
+      ]
+    },
+    "engine_20pct_mismatch": {
+      "median_position_error_m": 46.44100008207465,
+      "worst_position_error_m": 60.2925743762427,
+      "first_run_estimated_thrust_scale": 1.2034214442155515,
+      "first_run_true_thrust_scale": 1.2,
+      "first_run_alarms": {
+        "position": 0,
+        "tracker": 1
+      },
+      "first_run_rejected_packets": 1,
+      "first_run_quarantined_packets": 0,
+      "seeds": [
+        8129,
+        8130
+      ]
+    }
+  }
+}

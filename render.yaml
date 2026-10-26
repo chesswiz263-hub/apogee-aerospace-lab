@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: apogee-physics-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn apogee.api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      # Public GitHub Pages hosts can connect. Narrow this to your domain in production.
+      - key: APOGEE_ALLOWED_ORIGIN_REGEX
+        value: '^https://[A-Za-z0-9-]+\.github\.io$'

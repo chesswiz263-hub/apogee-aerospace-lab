@@ -1,0 +1,16 @@
+{
+  "altitude_km": 400,
+  "duration_minutes": 12,
+  "samples": 48,
+  "fault_channel": "position",
+  "fault_start_s": 360,
+  "position_fault_m": 250,
+  "tracker_fault_deg": 8,
+  "sensor_correlation": 0.25,
+  "engine_model_error_pct": 0,
+  "thrust_sigma_pct": 5,
+  "reject_faults": true,
+  "monte_carlo_runs": 3,
+  "seed": 29,
+  "reference_frame": "APOGEE_IDEAL_ECI"
+}

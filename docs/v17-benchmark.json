@@ -1,0 +1,91 @@
+{
+  "version": "1.7.0",
+  "note": "Synthetic shared-ADCS truth, joint EKF, seeded sensor errors; not hardware reliability.",
+  "runs_per_scenario": 3,
+  "cases": {
+    "clean_independent": {
+      "median_final_position_error_m": 21.571777931292925,
+      "worst_final_position_error_m": 51.16002125662224,
+      "first_run_position_1sigma_rss_m": 39.41516305928159,
+      "first_run_position_error_m": 20.646697082383216,
+      "first_run_attitude_error_deg": 0.838485257315945,
+      "first_run_alarm_counts": {
+        "position": 0,
+        "tracker": 0
+      },
+      "first_run_classification": "no_alarms",
+      "injected_measurement_alarm_fraction": null,
+      "first_run_false_attribution_possible": false
+    },
+    "correlated_no_fault": {
+      "median_final_position_error_m": 27.983329282568928,
+      "worst_final_position_error_m": 42.22304215838891,
+      "first_run_position_1sigma_rss_m": 39.41523654034662,
+      "first_run_position_error_m": 23.954734584011284,
+      "first_run_attitude_error_deg": 0.8507217798402728,
+      "first_run_alarm_counts": {
+        "position": 0,
+        "tracker": 0
+      },
+      "first_run_classification": "no_alarms",
+      "injected_measurement_alarm_fraction": null,
+      "first_run_false_attribution_possible": false
+    },
+    "position_fault": {
+      "median_final_position_error_m": 343.79458396551934,
+      "worst_final_position_error_m": 519.7765888882403,
+      "first_run_position_1sigma_rss_m": 58.45047968200542,
+      "first_run_position_error_m": 268.7444078076625,
+      "first_run_attitude_error_deg": 0.8573567216426065,
+      "first_run_alarm_counts": {
+        "position": 5,
+        "tracker": 0
+      },
+      "first_run_classification": "position_channel_inconsistent",
+      "injected_measurement_alarm_fraction": 0.7777777777777778,
+      "first_run_false_attribution_possible": false
+    },
+    "tracker_fault": {
+      "median_final_position_error_m": 26.33513005753127,
+      "worst_final_position_error_m": 43.01895972905453,
+      "first_run_position_1sigma_rss_m": 39.415550329887864,
+      "first_run_position_error_m": 21.27343791128504,
+      "first_run_attitude_error_deg": 8.550260579022167,
+      "first_run_alarm_counts": {
+        "position": 0,
+        "tracker": 5
+      },
+      "first_run_classification": "tracker_channel_inconsistent",
+      "injected_measurement_alarm_fraction": 0.9444444444444444,
+      "first_run_false_attribution_possible": false
+    },
+    "both_sensor_faults": {
+      "median_final_position_error_m": 345.02093387096795,
+      "worst_final_position_error_m": 507.78134331361514,
+      "first_run_position_1sigma_rss_m": 58.488702171743405,
+      "first_run_position_error_m": 267.83328577924544,
+      "first_run_attitude_error_deg": 2.8215839212532083,
+      "first_run_alarm_counts": {
+        "position": 5,
+        "tracker": 6
+      },
+      "first_run_classification": "multiple_channels_or_model_mismatch",
+      "injected_measurement_alarm_fraction": 0.8888888888888888,
+      "first_run_false_attribution_possible": false
+    },
+    "engine_mismatch_only": {
+      "median_final_position_error_m": 12825.865479208589,
+      "worst_final_position_error_m": 13084.766300198135,
+      "first_run_position_1sigma_rss_m": 1195.5299728085247,
+      "first_run_position_error_m": 12767.910111491792,
+      "first_run_attitude_error_deg": 0.8437046685697138,
+      "first_run_alarm_counts": {
+        "position": 8,
+        "tracker": 0
+      },
+      "first_run_classification": "position_channel_inconsistent",
+      "injected_measurement_alarm_fraction": null,
+      "first_run_false_attribution_possible": true
+    }
+  }
+}

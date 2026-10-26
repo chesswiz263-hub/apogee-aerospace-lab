@@ -1,0 +1,16 @@
+{
+  "altitude_km": 400,
+  "duration_minutes": 12,
+  "samples": 48,
+  "burn_start_s": 180,
+  "burn_duration_s": 120,
+  "actual_thrust_error_pct": 5,
+  "engine_model_error_pct": 0,
+  "estimate_thrust_scale": true,
+  "fault_channel": "none",
+  "measurement_response": "gate",
+  "adaptive_noise": true,
+  "monte_carlo_runs": 1,
+  "seed": 29,
+  "reference_frame": "APOGEE_IDEAL_ECI"
+}

@@ -1,0 +1,20 @@
+{
+  "altitude_km": 400,
+  "inclination_deg": 51.6,
+  "duration_minutes": 35,
+  "samples": 210,
+  "dry_mass_kg": 600,
+  "fuel_mass_kg": 150,
+  "thrust_n": 850,
+  "specific_impulse_s": 315,
+  "burn_start_s": 300,
+  "burn_duration_s": 120,
+  "initial_misalignment_deg": 25,
+  "target_mode": "prograde",
+  "controller_enabled": true,
+  "max_control_torque_nm": 0.25,
+  "kp_nm_per_rad": 1.2,
+  "kd_nms_per_rad": 18,
+  "j2_enabled": true,
+  "gravity_gradient_enabled": false
+}

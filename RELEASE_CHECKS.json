@@ -1,0 +1,45 @@
+{
+  "version": "2.4.0",
+  "test_runs": [
+    {
+      "scope": "tests: base through v08",
+      "passed": 149
+    },
+    {
+      "scope": "tests: v09\u2013v11",
+      "passed": 70
+    },
+    {
+      "scope": "tests: v12\u2013v14",
+      "passed": 49
+    },
+    {
+      "scope": "tests: v15\u2013v17",
+      "passed": 79
+    },
+    {
+      "scope": "tests: v18\u2013v20",
+      "passed": 79
+    },
+    {
+      "scope": "tests: v21\u2013v24",
+      "passed": 98
+    }
+  ],
+  "total_tests_collected": 524,
+  "total_tests_passed_across_batches": 524,
+  "full_uninterrupted_suite_completed": false,
+  "browser_checks": {
+    "desktop": "PASS_isolated_test_client",
+    "mobile": "PASS_isolated_test_client",
+    "two_file_subset_import": "PASS_isolated_test_client",
+    "full_networked_browser_to_server": "NOT_TESTED"
+  },
+  "actual_software_verification_gate": "PARTIAL",
+  "sgp4_comparison": "SKIP",
+  "astropy_frame_roundtrip": "SKIP",
+  "full_corpus_coverage": "SKIP",
+  "analytical_kepler": "PASS",
+  "numerical_convergence": "PASS",
+  "real_flight_accuracy_validated": false
+}

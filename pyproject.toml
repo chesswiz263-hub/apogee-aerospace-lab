@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apogee-orbit"
+version = "2.4.0"
+description = "APOGEE: numerical orbital mechanics, time-stamped integrated navigation, precision attitude estimation, geomagnetic unloading, reaction-wheel dynamics and body-fixed propulsion, autonomous guidance, and navigation uncertainty"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.11", "fastapi>=0.110", "uvicorn>=0.27", "sgp4>=2.23"]
+
+[project.optional-dependencies]
+frames = ["astropy>=6.0"]
+dev = ["pytest>=8", "httpx>=0.27", "scipy>=1.11"]
+
+[project.scripts]
+apogee = "apogee.cli:main"
+
+[tool.setuptools]
+packages = ["apogee"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

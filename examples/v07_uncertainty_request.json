@@ -1,0 +1,1 @@
+{"altitude_km":400,"inclination_deg":51.6,"duration_minutes":90,"position_sigma_m":100,"velocity_sigma_mm_s":10,"monte_carlo_samples":64,"seed":42,"j2_enabled":false,"steps":120}

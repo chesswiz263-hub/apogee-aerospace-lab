@@ -1,0 +1,7 @@
+numpy>=1.24
+fastapi>=0.110
+uvicorn>=0.27
+
+sgp4>=2.23
+
+scipy>=1.11

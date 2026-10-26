@@ -1,0 +1,19 @@
+{
+  "altitude_km": 400,
+  "inclination_deg": 51.6,
+  "duration_minutes": 18,
+  "samples": 109,
+  "initial_misalignment_deg": 25,
+  "initial_estimate_error_deg": 4,
+  "tracker_enabled": true,
+  "gyro_bias_deg_s": 0.015,
+  "gyro_noise_deg_s": 0.003,
+  "tracker_noise_deg": 0.035,
+  "tracker_interval_s": 30,
+  "controller_enabled": true,
+  "wheel_max_torque_nm": 0.2,
+  "wheel_momentum_limit_nms": 8,
+  "burn_start_s": 300,
+  "burn_duration_s": 120,
+  "seed": 27
+}

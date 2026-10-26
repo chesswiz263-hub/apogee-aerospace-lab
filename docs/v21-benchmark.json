@@ -1,0 +1,280 @@
+{
+  "version": "2.1.0",
+  "records": [
+    {
+      "range_m": 492544.41424099,
+      "range_rate_m_s": 982.6524999696586,
+      "elevation_deg": -10.994604723999286,
+      "azimuth_deg": 22.253947769379476,
+      "line_of_sight_itrs": [
+        0.7105958160937614,
+        0.48726570246429357,
+        0.5075684400669724
+      ],
+      "station_itrs_km": [
+        -2258.830794763524,
+        -3912.4097022316123,
+        4487.419119544039
+      ],
+      "model": "WGS84 ECEF/ITRS instantaneous geometric observation",
+      "epoch_utc": "2026-10-25T12:00:00Z",
+      "state_frame": "ITRS",
+      "measurement_frame": "ITRS",
+      "eop_status": "not required (state supplied in ITRS)",
+      "provenance": "synthetic",
+      "validity": "GEOMETRIC ONLY; NO signal light-time, atmosphere, clocks, or ground-station calibration",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "itrs_state": {
+        "position_km": [
+          -1908.830794763524,
+          -3672.4097022316123,
+          4737.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "residuals": {
+        "range_m": 2.0,
+        "range_rate_m_s": 0.009999999999990905
+      }
+    },
+    {
+      "range_m": 502497.76118904253,
+      "range_rate_m_s": 1007.7656839738424,
+      "elevation_deg": -9.834731113008829,
+      "azimuth_deg": 22.821714059882577,
+      "line_of_sight_itrs": [
+        0.7124409851157891,
+        0.4696538337634811,
+        0.5213953578221697
+      ],
+      "station_itrs_km": [
+        -2258.830794763524,
+        -3912.4097022316123,
+        4487.419119544039
+      ],
+      "model": "WGS84 ECEF/ITRS instantaneous geometric observation",
+      "epoch_utc": "2026-10-25T12:00:10Z",
+      "state_frame": "ITRS",
+      "measurement_frame": "ITRS",
+      "eop_status": "not required (state supplied in ITRS)",
+      "provenance": "synthetic",
+      "validity": "GEOMETRIC ONLY; NO signal light-time, atmosphere, clocks, or ground-station calibration",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "itrs_state": {
+        "position_km": [
+          -1900.830794763524,
+          -3676.4097022316123,
+          4749.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "residuals": {
+        "range_m": -2.0,
+        "range_rate_m_s": -0.009999999999990905
+      }
+    },
+    {
+      "range_m": 512694.84101168794,
+      "range_rate_m_s": 1031.4127580385482,
+      "elevation_deg": -8.719564201568499,
+      "azimuth_deg": 23.363413854851366,
+      "line_of_sight_itrs": [
+        0.7138749422127622,
+        0.452510892331587,
+        0.5344309676674777
+      ],
+      "station_itrs_km": [
+        -2258.830794763524,
+        -3912.4097022316123,
+        4487.419119544039
+      ],
+      "model": "WGS84 ECEF/ITRS instantaneous geometric observation",
+      "epoch_utc": "2026-10-25T12:00:20Z",
+      "state_frame": "ITRS",
+      "measurement_frame": "ITRS",
+      "eop_status": "not required (state supplied in ITRS)",
+      "provenance": "synthetic",
+      "validity": "GEOMETRIC ONLY; NO signal light-time, atmosphere, clocks, or ground-station calibration",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "itrs_state": {
+        "position_km": [
+          -1892.830794763524,
+          -3680.4097022316123,
+          4761.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "residuals": {
+        "range_m": 2.0,
+        "range_rate_m_s": 0.009999999999990905
+      }
+    },
+    {
+      "range_m": 523121.4008239388,
+      "range_rate_m_s": 1053.6751108477615,
+      "elevation_deg": -7.647648668940253,
+      "azimuth_deg": 23.88071146343302,
+      "line_of_sight_itrs": [
+        0.7149392080135393,
+        0.43584529258579396,
+        0.5467182178927065
+      ],
+      "station_itrs_km": [
+        -2258.830794763524,
+        -3912.4097022316123,
+        4487.419119544039
+      ],
+      "model": "WGS84 ECEF/ITRS instantaneous geometric observation",
+      "epoch_utc": "2026-10-25T12:00:30Z",
+      "state_frame": "ITRS",
+      "measurement_frame": "ITRS",
+      "eop_status": "not required (state supplied in ITRS)",
+      "provenance": "synthetic",
+      "validity": "GEOMETRIC ONLY; NO signal light-time, atmosphere, clocks, or ground-station calibration",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "itrs_state": {
+        "position_km": [
+          -1884.830794763524,
+          -3684.4097022316123,
+          4773.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "residuals": {
+        "range_m": -2.0,
+        "range_rate_m_s": -0.009999999999990905
+      }
+    },
+    {
+      "range_m": 533763.9927908214,
+      "range_rate_m_s": 1074.6322489849745,
+      "elevation_deg": -6.617472120064331,
+      "azimuth_deg": 24.375140535515115,
+      "line_of_sight_itrs": [
+        0.7156721044495471,
+        0.4196611293107292,
+        0.5582991809580237
+      ],
+      "station_itrs_km": [
+        -2258.830794763524,
+        -3912.4097022316123,
+        4487.419119544039
+      ],
+      "model": "WGS84 ECEF/ITRS instantaneous geometric observation",
+      "epoch_utc": "2026-10-25T12:00:40Z",
+      "state_frame": "ITRS",
+      "measurement_frame": "ITRS",
+      "eop_status": "not required (state supplied in ITRS)",
+      "provenance": "synthetic",
+      "validity": "GEOMETRIC ONLY; NO signal light-time, atmosphere, clocks, or ground-station calibration",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "itrs_state": {
+        "position_km": [
+          -1876.830794763524,
+          -3688.4097022316123,
+          4785.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "residuals": {
+        "range_m": 2.0,
+        "range_rate_m_s": 0.009999999999990905
+      }
+    },
+    {
+      "range_m": 544609.9521676041,
+      "range_rate_m_s": 1094.3611985566151,
+      "elevation_deg": -5.627489142547145,
+      "azimuth_deg": 24.848115736976485,
+      "line_of_sight_itrs": [
+        0.7161088379816776,
+        0.403958831681972,
+        0.5692147173700515
+      ],
+      "station_itrs_km": [
+        -2258.830794763524,
+        -3912.4097022316123,
+        4487.419119544039
+      ],
+      "model": "WGS84 ECEF/ITRS instantaneous geometric observation",
+      "epoch_utc": "2026-10-25T12:00:50Z",
+      "state_frame": "ITRS",
+      "measurement_frame": "ITRS",
+      "eop_status": "not required (state supplied in ITRS)",
+      "provenance": "synthetic",
+      "validity": "GEOMETRIC ONLY; NO signal light-time, atmosphere, clocks, or ground-station calibration",
+      "station": {
+        "latitude_deg": 45.0,
+        "longitude_deg": -120.0,
+        "height_m": 100.0
+      },
+      "itrs_state": {
+        "position_km": [
+          -1868.830794763524,
+          -3692.4097022316123,
+          4797.419119544039
+        ],
+        "velocity_km_s": [
+          0.8,
+          -0.4,
+          1.2
+        ]
+      },
+      "residuals": {
+        "range_m": -2.0,
+        "range_rate_m_s": -0.009999999999990905
+      }
+    }
+  ],
+  "reference_id": "APOGEE-v21-SYNTHETIC-ITRS-EXAMPLE",
+  "provenance": "synthetic",
+  "frame": "ITRS",
+  "sample_count": 6,
+  "statistics": {
+    "range_rms_m": 2.0,
+    "range_bias_m": 0.0,
+    "range_rate_rms_m_s": 0.009999999999990905,
+    "range_rate_bias_m_s": 0.0
+  },
+  "validation_scope": "User-provided instantaneous geometric reference residuals; NOT externally authenticated, time-of-flight-corrected or flight qualified"
+}

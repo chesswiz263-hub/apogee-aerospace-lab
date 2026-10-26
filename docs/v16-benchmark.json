@@ -1,0 +1,171 @@
+{
+  "version": "1.6.0",
+  "description": "Synthetic sensor/engine mismatch and chi-square gated EKF. Not operational validation.",
+  "scenarios": {
+    "nominal_white_noise_no_fault": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 48,
+        "measurement_sigma_m": 30.0,
+        "correlation": 0.0,
+        "thrust_error_pct": 0.0,
+        "fault_start_s": 360.0,
+        "fault_magnitude_m": 0.0,
+        "reject_faults": true,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "j2_enabled": true,
+        "seed": 29,
+        "monte_carlo_runs": 12,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "first_run_final_error_m": 24.280282061499395,
+      "first_run_mean_nis": 3.4289762303050666,
+      "first_run_fault_alarms": 0,
+      "first_run_pre_fault_alarms": 0,
+      "monte_carlo": {
+        "runs": 12,
+        "median_final_error_m": 11.889049487399753,
+        "worst_final_error_m": 24.280282061499395,
+        "false_alarm_rate_pre_fault": 0.0,
+        "fault_detection_rate": null,
+        "false_alarms_total": 0,
+        "fault_detected_count": 0
+      }
+    },
+    "time_correlated_noise_no_fault": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 48,
+        "measurement_sigma_m": 30.0,
+        "correlation": 0.65,
+        "thrust_error_pct": 0.0,
+        "fault_start_s": 360.0,
+        "fault_magnitude_m": 0.0,
+        "reject_faults": true,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "j2_enabled": true,
+        "seed": 29,
+        "monte_carlo_runs": 12,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "first_run_final_error_m": 46.97428680630558,
+      "first_run_mean_nis": 2.7100679861938577,
+      "first_run_fault_alarms": 0,
+      "first_run_pre_fault_alarms": 0,
+      "monte_carlo": {
+        "runs": 12,
+        "median_final_error_m": 23.47858187041534,
+        "worst_final_error_m": 46.97428680630558,
+        "false_alarm_rate_pre_fault": 0.0,
+        "fault_detection_rate": null,
+        "false_alarms_total": 0,
+        "fault_detected_count": 0
+      }
+    },
+    "sensor_fault_only": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 48,
+        "measurement_sigma_m": 30.0,
+        "correlation": 0.65,
+        "thrust_error_pct": 0.0,
+        "fault_start_s": 360.0,
+        "fault_magnitude_m": 220.0,
+        "reject_faults": true,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "j2_enabled": true,
+        "seed": 29,
+        "monte_carlo_runs": 12,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "first_run_final_error_m": 252.01079016691202,
+      "first_run_mean_nis": 5.644387254267426,
+      "first_run_fault_alarms": 7,
+      "first_run_pre_fault_alarms": 0,
+      "monte_carlo": {
+        "runs": 12,
+        "median_final_error_m": 93.85301916816003,
+        "worst_final_error_m": 263.5441358925922,
+        "false_alarm_rate_pre_fault": 0.0,
+        "fault_detection_rate": 1.0,
+        "false_alarms_total": 0,
+        "fault_detected_count": 12
+      }
+    },
+    "engine_uncertainty_only": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 48,
+        "measurement_sigma_m": 30.0,
+        "correlation": 0.65,
+        "thrust_error_pct": 3.0,
+        "fault_start_s": 360.0,
+        "fault_magnitude_m": 0.0,
+        "reject_faults": true,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "j2_enabled": true,
+        "seed": 29,
+        "monte_carlo_runs": 12,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "first_run_final_error_m": 483.9301553404278,
+      "first_run_mean_nis": 38.65309730700221,
+      "first_run_fault_alarms": 0,
+      "first_run_pre_fault_alarms": 21,
+      "monte_carlo": {
+        "runs": 12,
+        "median_final_error_m": 1570.7559935730765,
+        "worst_final_error_m": 2977.0757986005206,
+        "false_alarm_rate_pre_fault": 0.48299319727891155,
+        "fault_detection_rate": null,
+        "false_alarms_total": 284,
+        "fault_detected_count": 0
+      }
+    },
+    "combined_stress": {
+      "config": {
+        "altitude_km": 400.0,
+        "inclination_deg": 51.6,
+        "duration_minutes": 12.0,
+        "samples": 48,
+        "measurement_sigma_m": 30.0,
+        "correlation": 0.65,
+        "thrust_error_pct": 3.0,
+        "fault_start_s": 360.0,
+        "fault_magnitude_m": 220.0,
+        "reject_faults": true,
+        "burn_start_s": 180.0,
+        "burn_duration_s": 120.0,
+        "j2_enabled": true,
+        "seed": 29,
+        "monte_carlo_runs": 12,
+        "reference_frame": "APOGEE_IDEAL_ECI"
+      },
+      "first_run_final_error_m": 588.7843424389057,
+      "first_run_mean_nis": 63.784273503970894,
+      "first_run_fault_alarms": 25,
+      "first_run_pre_fault_alarms": 0,
+      "monte_carlo": {
+        "runs": 12,
+        "median_final_error_m": 1570.7559935730765,
+        "worst_final_error_m": 2977.0757986005206,
+        "false_alarm_rate_pre_fault": 0.1423611111111111,
+        "fault_detection_rate": 1.0,
+        "false_alarms_total": 41,
+        "fault_detected_count": 12
+      }
+    }
+  }
+}

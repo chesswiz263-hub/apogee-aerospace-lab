@@ -1,0 +1,24 @@
+{
+  "version": "1.3.0",
+  "research_only": true,
+  "scenarios": {
+    "coast": {
+      "final_position_error_m": 19.72547895302499,
+      "final_position_1sigma_rss_m": 26.39370498937731,
+      "final_velocity_error_m_s": 0.03306486478813085,
+      "final_attitude_estimation_error_deg": 0.019351183788090365,
+      "packets_received": 17,
+      "packets_generated": 18,
+      "propellant_consumed_kg": 0.0
+    },
+    "powered_burn": {
+      "final_position_error_m": 149.67621478139952,
+      "final_position_1sigma_rss_m": 26.391911904490954,
+      "final_velocity_error_m_s": 0.5073954307000391,
+      "final_attitude_estimation_error_deg": 0.060064854415080214,
+      "packets_received": 17,
+      "packets_generated": 18,
+      "propellant_consumed_kg": 33.01938213452513
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "integrator_comparison": [
+    {
+      "dt_s": 0.5,
+      "position_difference_m": 0.0017241469267605253,
+      "velocity_difference_mm_s": 0.013042536954467618,
+      "attitude_difference_deg": 1.7075472925031877e-06,
+      "mass_difference_kg": 2.8421709430404007e-12
+    },
+    {
+      "dt_s": 0.25,
+      "position_difference_m": 0.0003114744931986288,
+      "velocity_difference_mm_s": 0.0023563984707638402,
+      "attitude_difference_deg": 1.7075472925031877e-06,
+      "mass_difference_kg": 2.8421709430404007e-12
+    }
+  ],
+  "default_scenario": {
+    "initial_pointing_error_deg": 24.999999999999975,
+    "controlled_final_error_deg": 0.009584845199947381,
+    "uncontrolled_final_error_deg": 27.614877051513503,
+    "controlled_mean_burn_error_deg": 0.013241222749776184,
+    "uncontrolled_mean_burn_error_deg": 24.773838166447185,
+    "controlled_propellant_used_kg": 33.01938213452365,
+    "ideal_delta_v_m_s": 139.08463321927917
+  },
+  "limitations": [
+    "Same approximate dynamics in both integrators; not comparison with flight data",
+    "DOP853 and RK4 share force, attitude and controller equations",
+    "This is not a hardware-in-the-loop, control stability, or flight-certification test"
+  ]
+}

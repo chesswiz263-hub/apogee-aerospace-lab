@@ -1,0 +1,20 @@
+{
+  "altitude_km": 400,
+  "inclination_deg": 51.6,
+  "duration_minutes": 12,
+  "samples": 61,
+  "observation_interval_s": 36,
+  "observation_start_s": 0,
+  "observation_sigma_m": 30,
+  "noise_correlation": 0,
+  "burn_start_s": 180,
+  "burn_duration_s": 120,
+  "true_thrust_scale": 1.05,
+  "fault_bias_m": 250,
+  "fault_start_s": 360,
+  "fault_duration_s": 60,
+  "estimator": "huber",
+  "monte_carlo_runs": 48,
+  "seed": 29,
+  "reference_frame": "APOGEE_IDEAL_ECI"
+}

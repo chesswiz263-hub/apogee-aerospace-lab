@@ -1,0 +1,15 @@
+{
+  "altitude_km": 400,
+  "duration_minutes": 18,
+  "target_mode": "prograde",
+  "initial_wheel_momentum_nms": 2,
+  "tracker_enabled": true,
+  "tracker_visibility_enabled": true,
+  "gyro_bias_deg_s": 0.015,
+  "gyro_bias_random_walk_deg_s_sqrt_s": 0.000015,
+  "star_tracker_sun_exclusion_deg": 25,
+  "star_tracker_earth_limb_margin_deg": 8,
+  "desaturation_enabled": true,
+  "magnetorquer_max_dipole_am2": 120,
+  "seed": 27
+}

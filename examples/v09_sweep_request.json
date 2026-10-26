@@ -1,0 +1,9 @@
+{
+  "seeds": 5,
+  "station_count": 18,
+  "seed": 42,
+  "truth_j2_enabled": true,
+  "filter_j2_enabled": true,
+  "thrust_error_pct": 2,
+  "pointing_error_deg": 0.25
+}

@@ -1,0 +1,10 @@
+SYNTHETIC TEST DATA — NOT FROM JPL HORIZONS
+This is invented, minimal demonstration data for format and UI testing only.
+NOT a real ephemeris and not for physics validation.
+Target body name: SYNTHETIC TEST POINT
+Center body name: Earth (399)
+Output units: KM-S
+$$SOE
+2461000.500000000, A.D. synthetic only, 6.778137D+03, 0.0D+00, 0.0D+00, 0.0D+00, 7.6686D+00, 0.0D+00,
+2461000.500694444, A.D. synthetic only, 6.760000D+03, 4.596000D+02, 0.0D+00, -5.2000D-01, 7.6400D+00, 0.0D+00,
+$$EOE
