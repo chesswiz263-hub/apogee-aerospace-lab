@@ -1,0 +1,12 @@
+{
+  "install_v25.py": "a2bdf5e93378c6f25171ee1a092445a3961e405d350beed09bc2f0885c89abb4",
+  "APOGEE_V25_README.md": "ae05a0f92137c7e15219cd0fd84cad7704c304dd07fcd5f5029d8dc707710e77",
+  "requirements-v25.txt": "449976b4cc487a488844203118dea67b6320896ee0656bc929b6d08a8bd5b664",
+  "apogee/v25_solar.py": "d53e1122e9b64da4677817ab44f11981eb70c00bff8168c22ecba0545d440493",
+  "apogee/v25_operations.py": "96318d09a7cb5ae4710db68b97f0c152db91d785ce9bd8f495763d372fe3dc51",
+  "site/solar-system.html": "42cd8d1a6dcda2017977065bc370262ac4a8b831ae42d9e5ef861b7149d78c6e",
+  "scripts/v25_render_gate.py": "970f31975b2226b28a72578eb001e7ade11b7a69c9e168093b7b4cbc329811c1",
+  ".github/workflows/apogee-v25-verify.yml": "ace6a52e5db83329ba88d56758bf4cc69b4f19dbd016df80cab4094909c16d26",
+  "tests/test_v25_addon.py": "f3d490ba6a8c1adc26bcc7d472d2c1e75161777b0898d881d0f2908ba982b2a7",
+  "tests/test_v25_frames.py": "d69cc2c419d752de05568ec8406038d52b87e2a670a86bb4cb5edcbff1dde019"
+}

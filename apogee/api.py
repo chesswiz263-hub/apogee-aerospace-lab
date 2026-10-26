@@ -1262,3 +1262,9 @@ def v24_audit(req: V24ReferenceRequest):
             expected_vector_sha256=req.expected_vector_sha256)
     except (ValueError, ArithmeticError, KeyError, TypeError) as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+# APOGEE v2.5 additive operations routes
+from apogee.v25_operations import router as v25_router
+app.include_router(v25_router)
+# APOGEE v2.5: public read-only CORS for the Pages frontend
+from fastapi.middleware.cors import CORSMiddleware as _V25CORS
+app.add_middleware(_V25CORS, allow_origins=["https://chesswiz263-hub.github.io"], allow_credentials=False, allow_methods=["GET"], allow_headers=["*"])

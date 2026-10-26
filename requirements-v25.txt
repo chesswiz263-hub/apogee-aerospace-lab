@@ -1,0 +1,4 @@
+# External satellite physics + coordinate transforms.
+sgp4>=2.25,<3
+astropy>=6.0,<9
+# FastAPI is provided by existing APOGEE requirements.txt.
