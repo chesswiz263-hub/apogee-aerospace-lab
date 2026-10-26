@@ -8,6 +8,18 @@
 *{box-sizing:border-box}body{margin:0;overflow:hidden;background:var(--bg);color:var(--fg)}canvas{position:fixed;inset:0;display:block;cursor:grab}canvas:active{cursor:grabbing}
 .top{position:fixed;top:0;left:0;right:0;padding:19px 25px;display:flex;justify-content:space-between;align-items:center;gap:20px;pointer-events:none;background:linear-gradient(#061223db,transparent)}.top>*{pointer-events:auto}.brand{font-size:12px;letter-spacing:.21em;color:#95b6d6;font-weight:700}.brand strong{display:block;color:#fff;font-size:21px;letter-spacing:.10em;margin:5px 0}.status{font-size:12px;color:#91d3ff;background:#061b2fa9;border:1px solid #2b628c;border-radius:30px;padding:8px 14px}.left,.right{position:fixed;top:112px;bottom:112px;overflow:auto;background:#071426d9;backdrop-filter:blur(16px);border:1px solid #223b55;border-radius:15px;box-shadow:0 12px 35px #0006}.left{left:20px;width:215px;padding:14px}.right{right:20px;width:288px;padding:19px}.panelTitle{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:#7eaad0;margin:4px 4px 13px}.bodyBtn{width:100%;border:0;background:transparent;color:#b8c6d7;display:flex;align-items:center;gap:10px;padding:8px 9px;text-align:left;border-radius:8px;cursor:pointer;font:inherit;font-size:13px}.bodyBtn:hover,.bodyBtn.active{background:#163350;color:#fff}.dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex-shrink:0}.bodyBtn small{margin-left:auto;color:#6588ad}.right h2{font-size:25px;margin:8px 0 9px;font-weight:670}.right p{font-size:13px;color:#a9c0da;line-height:1.55}.measure{border-top:1px solid var(--line);margin-top:18px;padding-top:12px;display:flex;justify-content:space-between;gap:9px;font-size:12px}.measure strong{color:#eaf8ff;font-variant-numeric:tabular-nums}.dim{color:#93a9c1}.kind{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#69baf3}.bottom{position:fixed;bottom:17px;left:50%;transform:translateX(-50%);min-width:min(620px,95vw);border:1px solid #314864;border-radius:16px;background:#071426ea;backdrop-filter:blur(10px);padding:14px 17px;display:flex;align-items:center;gap:12px;justify-content:center}.bottom button,.bottom select,.bottom input{font:inherit;background:#11243c;color:#ecf5ff;border:1px solid #34516b;border-radius:8px;padding:7px 9px}.bottom button{cursor:pointer}.bottom button:hover{background:#1d4065}.bottom input{width:180px}.bottom label{font-size:11px;color:#97b3cc}.small{font-size:11px;color:#a9b8c9}.caption{font-size:11px;color:#8fa6bd;margin-top:20px;line-height:1.5}.api{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}.api input{width:100%;padding:8px;border:1px solid var(--line);background:#0b2038;color:#ddefff;border-radius:7px}.api button{margin-top:7px;padding:8px;border:1px solid #406587;background:#142d4a;color:#ddf1ff;border-radius:7px;cursor:pointer}.api pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;color:#b5cbe0;max-height:170px;overflow:auto}.readout{color:#95b8d8;font-size:11px;letter-spacing:.05em}.kbd{border:1px solid #375371;background:#162940;border-radius:4px;padding:1px 4px;color:#c9ddf0}@media(max-width:900px){.left{top:auto;bottom:101px;left:12px;width:168px;max-height:220px}.right{right:12px;top:90px;bottom:101px;width:220px}.top{padding:14px}.top .brand strong{font-size:16px}.bottom{padding:9px;gap:7px;flex-wrap:wrap}.bottom input{width:150px}}@media(max-width:560px){.right{width:185px;padding:12px}.left{width:125px;padding:8px}.bodyBtn{font-size:11px}.status{display:none}.bottom{width:96vw}.bottom input{width:140px}}
 </style>
+<style id="apogee-v25-embedded-css">
+body.apogee-v25-embedded .top {top:4px;left:4px;padding:4px 12px;background:transparent}
+body.apogee-v25-embedded .top .brand {font-size:9px}
+body.apogee-v25-embedded .top .brand strong{font-size:13px;margin:2px 0}
+body.apogee-v25-embedded .top .status, body.apogee-v25-embedded .top .readout,
+body.apogee-v25-embedded .left, body.apogee-v25-embedded .right{display:none}
+body.apogee-v25-embedded .bottom{bottom:6px;left:50%;width:calc(100% - 16px);min-width:0;max-width:800px;padding:6px 10px;border-radius:8px;gap:7px;flex-wrap:wrap}
+body.apogee-v25-embedded .bottom label {font-size:10px}
+body.apogee-v25-embedded .bottom button,body.apogee-v25-embedded .bottom select,body.apogee-v25-embedded .bottom input {padding:4px 7px;font-size:11px}
+body.apogee-v25-embedded .bottom input{width:126px}
+@media(max-width:650px){body.apogee-v25-embedded .bottom label,body.apogee-v25-embedded #reset{display:none}}
+</style>
 </head>
 <body>
 <canvas id="universe" aria-label="Interactive 3D-projected solar system with planet positions over time"></canvas>
@@ -131,5 +143,21 @@ $('#track').onclick=async()=>{const base=$('#apiUrl').value.trim().replace(/\/+$
 select('Earth');requestAnimationFrame(draw);
 // Panel number values update once per second; rendering continues at screen refresh.
 setInterval(updatePanel,1000);
+</script>
+<script id="apogee-v25-embedded-init">
+if(new URLSearchParams(location.search).has('embedded')) {
+ document.body.classList.add('apogee-v25-embedded');
+ const chooser=document.createElement('select');
+ chooser.title='Focus planet'; chooser.setAttribute('aria-label','Focus planet');
+ ['Sun','Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto'].forEach(n=>{
+   const opt=document.createElement('option');opt.value=n;opt.textContent=n;
+   if(n==='Earth')opt.selected=true;
+   chooser.appendChild(opt);
+ });
+ chooser.addEventListener('change',()=>{
+   document.querySelector('.bodyBtn[data-body="'+chooser.value+'"]').click();
+ });
+ document.querySelector('.bottom').prepend(chooser);
+}
 </script>
 </body></html>
