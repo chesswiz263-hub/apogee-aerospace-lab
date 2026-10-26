@@ -1265,6 +1265,9 @@ def v24_audit(req: V24ReferenceRequest):
 # APOGEE v2.5 additive operations routes
 from apogee.v25_operations import router as v25_router
 app.include_router(v25_router)
+# APOGEE v2.5 interplanetary pilot (additive; original 26 modes untouched)
+from apogee.v25_interplanetary import router as v25_flight_router
+app.include_router(v25_flight_router)
 # APOGEE v2.5: public read-only CORS for the Pages frontend
 from fastapi.middleware.cors import CORSMiddleware as _V25CORS
 app.add_middleware(_V25CORS, allow_origins=["https://chesswiz263-hub.github.io"], allow_credentials=False, allow_methods=["GET","POST","OPTIONS"], allow_headers=["*"])

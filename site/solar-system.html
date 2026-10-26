@@ -110,6 +110,7 @@ function draw(now){const dt=Math.max(0,Math.min(80,now-elapsed));elapsed=now;
  ctx.clearRect(0,0,W,H);let bg=ctx.createRadialGradient(W*.44,H*.55,10,W*.44,H*.5,Math.max(W,H)*.85);bg.addColorStop(0,'#0c2033');bg.addColorStop(.55,'#061321');bg.addColorStop(1,'#020710');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
  for(const [sx,sy,a] of stars){ctx.globalAlpha=a*.72;ctx.fillStyle='#e4efff';ctx.fillRect(sx*W,sy*H,1.1,1.1)}ctx.globalAlpha=1;
  for(const n of Object.keys(E)) orbit(n);
+ if(window.APOGEE_V25_FLIGHT) window.APOGEE_V25_FLIGHT.drawTrail({ctx,project,visual});
  hit=[];let entities=[];for(const n of ['Sun',...Object.keys(E)]){const s=state(n,sim),v=visual(s),p=project(v);entities.push({n,s,p})}
  entities.sort((a,b)=>a.p.z-b.p.z);
  for(const {n,s,p} of entities){const info=INFO[n];let r=info[1]*Math.max(.65,Math.min(1.7,zoom*.77));
@@ -122,6 +123,7 @@ function draw(now){const dt=Math.max(0,Math.min(80,now-elapsed));elapsed=now;
   MOONS[n].forEach(([mn,au,days,color],idx)=>{const rr=13+idx*10;const ang=(sim/86400000)/days*2*Math.PI;ctx.beginPath();ctx.strokeStyle='#7892ad50';ctx.ellipse(p.x,p.y,rr,rr*.53,-.3,0,Math.PI*2);ctx.stroke();const mx=p.x+rr*Math.cos(ang),my=p.y+rr*.53*Math.sin(ang);sphere(mx,my,2.1,color);ctx.fillStyle='#b3c9e4';ctx.font='9px system-ui';ctx.fillText(mn,mx+4,my-4)});
  }
  }
+ if(window.APOGEE_V25_FLIGHT) window.APOGEE_V25_FLIGHT.drawCraft({ctx,project,visual,sim});
  const d=new Date(sim);$('#epoch').textContent=d.toISOString().slice(0,10);$('#date').value=d.toISOString().slice(0,10);
  requestAnimationFrame(draw)
 }
@@ -160,4 +162,5 @@ if(new URLSearchParams(location.search).has('embedded')) {
  document.querySelector('.bottom').prepend(chooser);
 }
 </script>
+<script src="apogee-v25-flight.js"></script>
 </body></html>

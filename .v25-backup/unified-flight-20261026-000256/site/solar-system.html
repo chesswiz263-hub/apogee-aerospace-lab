@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>APOGEE v2.5 • Solar System</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;--fg:#e9f2ff;--sub:#9caeca;--line:#28435f;--blue:#58bbff;--bg:#040a15}
+*{box-sizing:border-box}body{margin:0;overflow:hidden;background:var(--bg);color:var(--fg)}canvas{position:fixed;inset:0;display:block;cursor:grab}canvas:active{cursor:grabbing}
+.top{position:fixed;top:0;left:0;right:0;padding:19px 25px;display:flex;justify-content:space-between;align-items:center;gap:20px;pointer-events:none;background:linear-gradient(#061223db,transparent)}.top>*{pointer-events:auto}.brand{font-size:12px;letter-spacing:.21em;color:#95b6d6;font-weight:700}.brand strong{display:block;color:#fff;font-size:21px;letter-spacing:.10em;margin:5px 0}.status{font-size:12px;color:#91d3ff;background:#061b2fa9;border:1px solid #2b628c;border-radius:30px;padding:8px 14px}.left,.right{position:fixed;top:112px;bottom:112px;overflow:auto;background:#071426d9;backdrop-filter:blur(16px);border:1px solid #223b55;border-radius:15px;box-shadow:0 12px 35px #0006}.left{left:20px;width:215px;padding:14px}.right{right:20px;width:288px;padding:19px}.panelTitle{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:#7eaad0;margin:4px 4px 13px}.bodyBtn{width:100%;border:0;background:transparent;color:#b8c6d7;display:flex;align-items:center;gap:10px;padding:8px 9px;text-align:left;border-radius:8px;cursor:pointer;font:inherit;font-size:13px}.bodyBtn:hover,.bodyBtn.active{background:#163350;color:#fff}.dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex-shrink:0}.bodyBtn small{margin-left:auto;color:#6588ad}.right h2{font-size:25px;margin:8px 0 9px;font-weight:670}.right p{font-size:13px;color:#a9c0da;line-height:1.55}.measure{border-top:1px solid var(--line);margin-top:18px;padding-top:12px;display:flex;justify-content:space-between;gap:9px;font-size:12px}.measure strong{color:#eaf8ff;font-variant-numeric:tabular-nums}.dim{color:#93a9c1}.kind{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#69baf3}.bottom{position:fixed;bottom:17px;left:50%;transform:translateX(-50%);min-width:min(620px,95vw);border:1px solid #314864;border-radius:16px;background:#071426ea;backdrop-filter:blur(10px);padding:14px 17px;display:flex;align-items:center;gap:12px;justify-content:center}.bottom button,.bottom select,.bottom input{font:inherit;background:#11243c;color:#ecf5ff;border:1px solid #34516b;border-radius:8px;padding:7px 9px}.bottom button{cursor:pointer}.bottom button:hover{background:#1d4065}.bottom input{width:180px}.bottom label{font-size:11px;color:#97b3cc}.small{font-size:11px;color:#a9b8c9}.caption{font-size:11px;color:#8fa6bd;margin-top:20px;line-height:1.5}.api{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}.api input{width:100%;padding:8px;border:1px solid var(--line);background:#0b2038;color:#ddefff;border-radius:7px}.api button{margin-top:7px;padding:8px;border:1px solid #406587;background:#142d4a;color:#ddf1ff;border-radius:7px;cursor:pointer}.api pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;color:#b5cbe0;max-height:170px;overflow:auto}.readout{color:#95b8d8;font-size:11px;letter-spacing:.05em}.kbd{border:1px solid #375371;background:#162940;border-radius:4px;padding:1px 4px;color:#c9ddf0}@media(max-width:900px){.left{top:auto;bottom:101px;left:12px;width:168px;max-height:220px}.right{right:12px;top:90px;bottom:101px;width:220px}.top{padding:14px}.top .brand strong{font-size:16px}.bottom{padding:9px;gap:7px;flex-wrap:wrap}.bottom input{width:150px}}@media(max-width:560px){.right{width:185px;padding:12px}.left{width:125px;padding:8px}.bodyBtn{font-size:11px}.status{display:none}.bottom{width:96vw}.bottom input{width:140px}}
+</style>
+<style id="apogee-v25-embedded-css">
+body.apogee-v25-embedded .top {top:4px;left:4px;padding:4px 12px;background:transparent}
+body.apogee-v25-embedded .top .brand {font-size:9px}
+body.apogee-v25-embedded .top .brand strong{font-size:13px;margin:2px 0}
+body.apogee-v25-embedded .top .status, body.apogee-v25-embedded .top .readout,
+body.apogee-v25-embedded .left, body.apogee-v25-embedded .right{display:none}
+body.apogee-v25-embedded .bottom{bottom:6px;left:50%;width:calc(100% - 16px);min-width:0;max-width:800px;padding:6px 10px;border-radius:8px;gap:7px;flex-wrap:wrap}
+body.apogee-v25-embedded .bottom label {font-size:10px}
+body.apogee-v25-embedded .bottom button,body.apogee-v25-embedded .bottom select,body.apogee-v25-embedded .bottom input {padding:4px 7px;font-size:11px}
+body.apogee-v25-embedded .bottom input{width:126px}
+@media(max-width:650px){body.apogee-v25-embedded .bottom label,body.apogee-v25-embedded #reset{display:none}}
+</style>
+</head>
+<body>
+<canvas id="universe" aria-label="Interactive 3D-projected solar system with planet positions over time"></canvas>
+<header class="top"><div class="brand">APOGEE • AEROSPACE PHYSICS LAB<strong>SOLAR SYSTEM</strong><span class="readout">v2.5 · J2000 heliocentric ecliptic</span></div><div class="status" id="status">● MODEL ACTIVE · 8 PLANETS + DWARF WORLD</div></header>
+<aside class="left" aria-label="Celestial body selection"><div class="panelTitle">Explore worlds</div><div id="bodyList"></div><div class="caption">Drag to orbit camera<br>Scroll to zoom<br>Tap a world to focus<br><span class="kbd">Space</span> pause/resume</div></aside>
+<aside class="right" id="details" aria-live="polite"><div class="kind" id="kind">Solar system</div><h2 id="bodyName">Earth</h2><p id="description"></p><div class="measure"><span class="dim">From Sun</span><strong id="distance">—</strong></div><div class="measure"><span class="dim">Orbit / model</span><strong id="period">—</strong></div><div class="measure"><span class="dim">Inclination</span><strong id="inclination">—</strong></div><div class="measure"><span class="dim">Epoch (UTC)</span><strong id="epoch">—</strong></div><div class="api"><div class="panelTitle">Earth satellite operations</div><label class="small" for="apiUrl">Optional Render API origin</label><input id="apiUrl" placeholder="https://your-service.onrender.com" aria-label="Render API URL"><button id="track">Fetch ISS (25544) state</button><pre id="satelliteResult">Earth satellite positions are calculated on Render, not blended into heliocentric coordinates.</pre></div><div class="caption">Eight planet positions: approximate JPL orbital elements, valid 1800–2050. Earth uses Earth–Moon barycenter. Pluto and named moon orbits are illustrative only. Orbit distance is compressed and body size exaggerated for viewing. This is not a flight-certified ephemeris.</div></aside>
+<footer class="bottom"><button id="toggle" aria-label="Pause simulation">Ⅱ Pause</button><button id="now">Today</button><label for="date">UTC date</label><input type="date" id="date" min="1800-01-01" max="2050-12-31"><label for="speed">Time flow</label><select id="speed"><option value="0">Frozen</option><option value="1">1 day/s</option><option value="7" selected>7 days/s</option><option value="30">30 days/s</option><option value="365">1 year/s</option></select><button id="reset">Reset view</button></footer>
+<script>
+'use strict';
+// NASA/JPL SSD approximate positions, Table 1 (1800--2050). e is dimensionless.
+const E={
+Mercury:[[.38709927,.20563593,7.00497902,252.25032350,77.45779628,48.33076593],[.00000037,.00001906,-.00594749,149472.67411175,.16047689,-.12534081]],
+Venus:[[.72333566,.00677672,3.39467605,181.97909950,131.60246718,76.67984255],[.00000390,-.00004107,-.00078890,58517.81538729,.00268329,-.27769418]],
+Earth:[[1.00000261,.01671123,-.00001531,100.46457166,102.93768193,0],[.00000562,-.00004392,-.01294668,35999.37244981,.32327364,0]],
+Mars:[[1.52371034,.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891],[.00001847,.00007882,-.00813131,19140.30268499,.44441088,-.29257343]],
+Jupiter:[[5.20288700,.04838624,1.30439695,34.39644051,14.72847983,100.47390909],[-.00011607,-.00013253,-.00183714,3034.74612775,.21252668,.20469106]],
+Saturn:[[9.53667594,.05386179,2.48599187,49.95424423,92.59887831,113.66242448],[-.00125060,-.00050991,.00193609,1222.49362201,-.41897216,-.28867794]],
+Uranus:[[19.18916464,.04725744,.77263783,313.23810451,170.95427630,74.01692503],[-.00196176,-.00004397,-.00242939,428.48202785,.40805281,.04240589]],
+Neptune:[[30.06992276,.00859048,1.77004347,-55.12002969,44.96476227,131.78422574],[.00026291,.00005105,.00035372,218.45945325,-.32241464,-.00508664]],
+// Pluto is outside JPL Table 1. Static J2000 Kepler elements: qualitative orbit only.
+Pluto:[[39.482117,.248827,17.140012,238.929038,224.068916,110.303937],[0,0,0,145.0,0,0]]};
+const INFO={
+Sun:['#ffc976',11,'Star','The Sun is the gravitational center of this heliocentric display.','—'],
+Mercury:['#b2aa9f',3.5,'Terrestrial planet','Small rocky world closest to the Sun.','88 d'],
+Venus:['#e9c999',5.3,'Terrestrial planet','Dense atmosphere and slow retrograde rotation.','225 d'],
+Earth:['#58b3ff',5.8,'Terrestrial planet','Our home world. This simplified planetary position is for the Earth–Moon barycenter.','365 d'],
+Mars:['#e27c59',4.2,'Terrestrial planet','A rocky planet and a prime destination for robotic missions.','687 d'],
+Jupiter:['#d8b38c',9.3,'Gas giant','Largest planet, accompanied by the four Galilean moons.','11.86 y'],
+Saturn:['#e3d0a8',8.3,'Gas giant','A giant planet with a spectacular system of rings.','29.45 y'],
+Uranus:['#a1e5e5',6.8,'Ice giant','A distant world with an unusually tilted rotation axis.','84.0 y'],
+Neptune:['#538bfc',6.6,'Ice giant','Distant outer planet with intense atmospheric winds.','164.8 y'],
+Pluto:['#b9b8b2',3.7,'Dwarf planet • illustrative','Shown as a dwarf planet; position is only a simplified illustrative Kepler orbit.','248 y']};
+const MOONS={
+Earth:[['Moon',.00257,27.32,'#dce4ed']],
+Mars:[['Phobos',.000063,0.319,'#b99d8a'],['Deimos',.000157,1.263,'#c0b6ab']],
+Jupiter:[['Io',.00282,1.769,'#eac28a'],['Europa',.00449,3.551,'#e1dbcd'],['Ganymede',.00715,7.155,'#aeb5b9'],['Callisto',.01259,16.69,'#787b86']],
+Saturn:[['Enceladus',.00159,1.37,'#d9e6f2'],['Titan',.00817,15.945,'#e4c27e']],
+Uranus:[['Titania',.0029,8.71,'#c9d7de'],['Oberon',.0039,13.46,'#c4bac3']],
+Neptune:[['Triton',.00237,5.877,'#afc1d3']],
+Pluto:[['Charon',.000131,6.387,'#b6b6b2']]};
+const $=s=>document.querySelector(s), canvas=$('#universe'),ctx=canvas.getContext('2d');
+let selected='Earth', sim=Date.now(), playing=true, speed=7, pitch=.63,yaw=-.50,zoom=1, pointer=null;
+let W=0,H=0,DPR=1,elapsed=performance.now(),hit=[];
+const deg=Math.PI/180, J2000=2451545, AU=149597870.7;
+function jd(ms){return ms/86400000+2440587.5}
+function state(name,dateMs){
+ if(name==='Sun')return {x:0,y:0,z:0,r:0,a:0,i:0};
+ const [base,vel]=E[name], T=(jd(dateMs)-J2000)/36525;
+ let [a,e,I,L,peri,node]=base.map((v,k)=>v+vel[k]*T);
+ let m=((L-peri+180)%360+360)%360-180;let M=m*deg, ecc=M;
+ for(let k=0;k<24;k++){let step=(ecc-e*Math.sin(ecc)-M)/(1-e*Math.cos(ecc));ecc-=step;if(Math.abs(step)<1e-14)break}
+ const px=a*(Math.cos(ecc)-e),py=a*Math.sqrt(1-e*e)*Math.sin(ecc),w=(peri-node)*deg,O=node*deg,i=I*deg;
+ const x=(Math.cos(w)*Math.cos(O)-Math.sin(w)*Math.sin(O)*Math.cos(i))*px+(-Math.sin(w)*Math.cos(O)-Math.cos(w)*Math.sin(O)*Math.cos(i))*py;
+ const y=(Math.cos(w)*Math.sin(O)+Math.sin(w)*Math.cos(O)*Math.cos(i))*px+(-Math.sin(w)*Math.sin(O)+Math.cos(w)*Math.cos(O)*Math.cos(i))*py;
+ const z=Math.sin(w)*Math.sin(i)*px+Math.cos(w)*Math.sin(i)*py;
+ return {x,y,z,r:Math.hypot(x,y,z),a,i:I};
+}
+function visual(s){let r=Math.hypot(s.x,s.y,s.z); if(r<1e-9)return [0,0,0];const rr=20*Math.sqrt(r);return [s.x/r*rr,s.y/r*rr,s.z/r*rr]}
+function rotate(x,y,z){let c=Math.cos(yaw),s=Math.sin(yaw),xx=x*c-y*s,yy=x*s+y*c;
+ let cp=Math.cos(pitch),sp=Math.sin(pitch);return [xx,yy*cp-z*sp,yy*sp+z*cp]}
+function project(p){const [x,y,z]=rotate(...p);let focal=950/(950-z*zoom*.30);let scale=Math.min(W/255,H/140)*zoom;return {x:W*.49+x*scale*focal,y:H*.52+y*scale*focal,z,scale:scale*focal}}
+function resize(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=Math.ceil(W*DPR);canvas.height=Math.ceil(H*DPR);canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0)}
+window.addEventListener('resize',resize);resize();
+let stars=Array.from({length:300},(_,k)=>{let z=Math.sin(k*128.9)*43758.5453;let v=z-Math.floor(z),w=Math.sin(k*77.31)*2938.3;return [v,(w-Math.floor(w)),.25+((k*31)%12)/14]});
+function orbit(name){
+ // Draw osculating ellipse at the *current* epoch, rather than stepping
+ // outside JPL's supported 1800–2050 interval for the outer planets.
+ const [base,rate]=E[name],T=(jd(sim)-J2000)/36525;
+ const [a,e,I,L,peri,node]=base.map((v,k)=>v+rate[k]*T);
+ const w=(peri-node)*deg,O=node*deg,i=I*deg;
+ const cw=Math.cos(w),sw=Math.sin(w),cO=Math.cos(O),sO=Math.sin(O),ci=Math.cos(i),si=Math.sin(i);
+ ctx.beginPath();for(let j=0;j<=160;j++){
+  const theta=j/160*Math.PI*2;
+  const px=a*(Math.cos(theta)-e),py=a*Math.sqrt(1-e*e)*Math.sin(theta);
+  const p=project(visual({
+   x:(cw*cO-sw*sO*ci)*px+(-sw*cO-cw*sO*ci)*py,
+   y:(cw*sO+sw*cO*ci)*px+(-sw*sO+cw*cO*ci)*py,
+   z:sw*si*px+cw*si*py
+  }));
+  if(j===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)
+ }
+ ctx.strokeStyle=name===selected?'rgba(101,194,255,.55)':'rgba(99,143,176,.20)';
+ ctx.lineWidth=name===selected?1.3:.7;ctx.stroke()
+}
+function sphere(x,y,r,color,focus=false){let g=ctx.createRadialGradient(x-r*.38,y-r*.4,1,x,y,r*1.4);g.addColorStop(0,'#ffffff');g.addColorStop(.12,color);g.addColorStop(1,'#07101d');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();if(focus){ctx.strokeStyle='#7fd1ff';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,r+6,0,Math.PI*2);ctx.stroke()}}
+function draw(now){const dt=Math.max(0,Math.min(80,now-elapsed));elapsed=now;
+ if(playing && speed>0){sim=Math.max(Date.UTC(1800,0,1),Math.min(Date.UTC(2050,11,31),sim+dt*speed*86400));}
+ ctx.clearRect(0,0,W,H);let bg=ctx.createRadialGradient(W*.44,H*.55,10,W*.44,H*.5,Math.max(W,H)*.85);bg.addColorStop(0,'#0c2033');bg.addColorStop(.55,'#061321');bg.addColorStop(1,'#020710');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ for(const [sx,sy,a] of stars){ctx.globalAlpha=a*.72;ctx.fillStyle='#e4efff';ctx.fillRect(sx*W,sy*H,1.1,1.1)}ctx.globalAlpha=1;
+ for(const n of Object.keys(E)) orbit(n);
+ hit=[];let entities=[];for(const n of ['Sun',...Object.keys(E)]){const s=state(n,sim),v=visual(s),p=project(v);entities.push({n,s,p})}
+ entities.sort((a,b)=>a.p.z-b.p.z);
+ for(const {n,s,p} of entities){const info=INFO[n];let r=info[1]*Math.max(.65,Math.min(1.7,zoom*.77));
+ if(n==='Sun'){let halo=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,65*zoom);halo.addColorStop(0,'#ffc96b55');halo.addColorStop(1,'#ffa34100');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(p.x,p.y,65*zoom,0,Math.PI*2);ctx.fill();r=10*zoom}
+ if(n==='Saturn'){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(-.28);ctx.strokeStyle='#dcc79b90';ctx.lineWidth=5*zoom;ctx.beginPath();ctx.ellipse(0,0,r*1.85,r*.75,0,0,Math.PI*2);ctx.stroke();ctx.restore()}
+ sphere(p.x,p.y,r,info[0],n===selected);hit.push({n,x:p.x,y:p.y,r:Math.max(15,r+7)});
+ ctx.fillStyle=n===selected?'#e9f8ff':'#b4c4d6';ctx.font=(n===selected?'600 ':'')+'11px system-ui';ctx.textAlign='left';ctx.fillText(n,p.x+r+8,p.y+3);
+ // Moons orbit around the displayed body in intentionally exaggerated local units.
+ if(n===selected && MOONS[n]){
+  MOONS[n].forEach(([mn,au,days,color],idx)=>{const rr=13+idx*10;const ang=(sim/86400000)/days*2*Math.PI;ctx.beginPath();ctx.strokeStyle='#7892ad50';ctx.ellipse(p.x,p.y,rr,rr*.53,-.3,0,Math.PI*2);ctx.stroke();const mx=p.x+rr*Math.cos(ang),my=p.y+rr*.53*Math.sin(ang);sphere(mx,my,2.1,color);ctx.fillStyle='#b3c9e4';ctx.font='9px system-ui';ctx.fillText(mn,mx+4,my-4)});
+ }
+ }
+ const d=new Date(sim);$('#epoch').textContent=d.toISOString().slice(0,10);$('#date').value=d.toISOString().slice(0,10);
+ requestAnimationFrame(draw)
+}
+function updatePanel(){const s=state(selected,sim),info=INFO[selected];$('#bodyName').textContent=selected;$('#kind').textContent=info[2];$('#description').textContent=info[3];$('#period').textContent=info[4];$('#distance').textContent=selected==='Sun'?'0 AU':s.r.toFixed(4)+' AU';$('#inclination').textContent=selected==='Sun'?'—':s.i.toFixed(3)+'°';document.querySelectorAll('.bodyBtn').forEach(b=>b.classList.toggle('active',b.dataset.body===selected))}
+function select(n){selected=n;updatePanel()}
+$('#bodyList').innerHTML=['Sun',...Object.keys(E)].map(n=>`<button class="bodyBtn" type="button" data-body="${n}"><span class="dot" style="background:${INFO[n][0]}"></span>${n}<small>${n==='Pluto'?'dwarf':''}</small></button>`).join('');
+$('#bodyList').addEventListener('click',e=>{let b=e.target.closest('[data-body]');if(b)select(b.dataset.body)});
+canvas.addEventListener('pointerdown',e=>{pointer={x:e.clientX,y:e.clientY,beginX:e.clientX,beginY:e.clientY};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!pointer)return;yaw+=(e.clientX-pointer.x)*.008;pitch=Math.max(-1.42,Math.min(1.42,pitch+(e.clientY-pointer.y)*.008));pointer.x=e.clientX;pointer.y=e.clientY});
+canvas.addEventListener('pointerup',e=>{if(pointer && Math.hypot(e.clientX-pointer.beginX,e.clientY-pointer.beginY)<5){let found=[...hit].reverse().find(h=>Math.hypot(h.x-e.clientX,h.y-e.clientY)<h.r);if(found)select(found.n)}pointer=null});
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.22,Math.min(3.8,zoom*Math.exp(-e.deltaY*.001)))},{passive:false});
+$('#toggle').onclick=()=>{playing=!playing;$('#toggle').textContent=playing?'Ⅱ Pause':'▶ Play'};
+$('#now').onclick=()=>{sim=Date.now();updatePanel()};$('#reset').onclick=()=>{zoom=1;yaw=-.5;pitch=.63;select('Earth')};
+$('#date').onchange=e=>{let x=Date.parse(e.target.value+'T00:00:00Z');if(Number.isFinite(x))sim=x;updatePanel()};
+$('#speed').onchange=e=>{speed=Number(e.target.value);if(speed===0)playing=false;else playing=true;$('#toggle').textContent=playing?'Ⅱ Pause':'▶ Play'};
+window.addEventListener('keydown',e=>{if(e.code==='Space' && !['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();$('#toggle').click()}});
+const params=new URLSearchParams(location.search);let savedApi='';try{savedApi=localStorage.getItem('apogeeApiUrl')||''}catch(e){}$('#apiUrl').value=params.get('api')||savedApi;
+$('#track').onclick=async()=>{const base=$('#apiUrl').value.trim().replace(/\/+$/,'');const out=$('#satelliteResult');if(!/^https:\/\/[a-z\d.-]+(?::\d+)?$/i.test(base) && !/^http:\/\/localhost(?::\d+)?$/.test(base)){out.textContent='Enter the origin of your deployed Render API (HTTPS).';return}try{localStorage.setItem('apogeeApiUrl',base)}catch(e){}out.textContent='Requesting ISS OMM → SGP4 → Astropy frame conversion…';try{const t=encodeURIComponent(new Date(sim).toISOString());const r=await fetch(`${base}/api/v25/satellites/25544/state?at=${t}`,{signal:AbortSignal.timeout(15000)});const data=await r.json();if(!r.ok)throw Error(data.detail||r.status);out.textContent=`${data.name} • #${data.catalog_number}\nEpoch age: ${data.element_age_days} days\nTEME position: ${data.frames.TEME.position_km.map(n=>n.toFixed(1)).join(', ')} km\n${data.subpoint?`Subpoint: ${data.subpoint.latitude_deg.toFixed(3)}°, ${data.subpoint.longitude_deg.toFixed(3)}°`:'Ground subpoint unavailable (check Astropy)'}\n${data.stale_or_far_from_epoch?'⚠ Requested time far from element epoch':'Recent element epoch'}`;}catch(e){out.textContent='Satellite request failed: '+e.message+'\nCheck Render URL, deployed dependencies, and CORS settings.'}};
+select('Earth');requestAnimationFrame(draw);
+// Panel number values update once per second; rendering continues at screen refresh.
+setInterval(updatePanel,1000);
+</script>
+<script id="apogee-v25-embedded-init">
+if(new URLSearchParams(location.search).has('embedded')) {
+ document.body.classList.add('apogee-v25-embedded');
+ const chooser=document.createElement('select');
+ chooser.title='Focus planet'; chooser.setAttribute('aria-label','Focus planet');
+ ['Sun','Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto'].forEach(n=>{
+   const opt=document.createElement('option');opt.value=n;opt.textContent=n;
+   if(n==='Earth')opt.selected=true;
+   chooser.appendChild(opt);
+ });
+ chooser.addEventListener('change',()=>{
+   document.querySelector('.bodyBtn[data-body="'+chooser.value+'"]').click();
+ });
+ document.querySelector('.bottom').prepend(chooser);
+}
+</script>
+</body></html>
