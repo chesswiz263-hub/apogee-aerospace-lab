@@ -1,0 +1,16 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+.venv/
+dist/
+build/
+.DS_Store
+
+# Web release
+.env
+.env.*
+!.env.example
+reference_inputs/
+APOGEE-*-audit.json
+site/.DS_Store
